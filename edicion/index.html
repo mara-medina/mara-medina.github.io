@@ -26,23 +26,23 @@
     <div class="intro">
       <h1 class="nombre">Mara Medina</h1>
       <p class="oficio">Editora de video</p>
-      <p class="resumen">Edito short-form, comerciales y motion graphics para marcas y creadores. Abajo está la línea de tiempo con mis proyectos: elige uno y míralo completo.</p>
+      <p class="resumen">Edito short-form, comerciales y motion graphics para marcas y creadores. Este es mi demo reel; abajo están los proyectos completos, uno por tema.</p>
 
-      <div class="ficha" aria-live="polite">
-        <p class="ficha__cat" id="f-cat"></p>
-        <p class="ficha__titulo" id="f-titulo"></p>
-        <p class="ficha__tags" id="f-tags"></p>
+      <div class="ficha">
+        <p class="ficha__cat">Demo reel 2026</p>
+        <p class="ficha__titulo">Short-form · Comerciales · Motion graphics</p>
+        <p class="ficha__tags">Lo mejor de cada proyecto en un solo corte</p>
         <dl class="ficha__specs">
-          <div><dt>Duración</dt><dd id="f-dur"></dd></div>
+          <div><dt>Duración</dt><dd>01:58</dd></div>
           <div><dt>Formato</dt><dd>1080×1920 · 30 fps</dd></div>
-          <div><dt>Audio</dt><dd id="f-audio"></dd></div>
+          <div><dt>Audio</dt><dd>Estéreo</dd></div>
         </dl>
       </div>
     </div>
 
     <div class="monitor">
       <div class="monitor__marco">
-        <video id="video" playsinline muted preload="metadata" poster="media/demo-reel.jpg"></video>
+        <video id="video" src="media/demo-reel.mp4" playsinline muted preload="metadata" poster="media/demo-reel.jpg"></video>
         <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
         <button class="monitor__play" id="play-grande" type="button" aria-label="Reproducir">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
@@ -59,19 +59,72 @@
     </div>
   </section>
 
-  <section class="linea" aria-labelledby="linea-titulo">
-    <div class="linea__cab">
-      <h2 id="linea-titulo">Secuencia</h2>
-      <span class="linea__nota">Cada clip mide lo que dura el video</span>
+  <section class="proyectos" id="proyectos" aria-labelledby="proyectos-titulo">
+    <div class="proyectos__cab">
+      <h2 id="proyectos-titulo">Proyectos completos</h2>
+      <p class="proyectos__nota">Cada pieza de principio a fin, por tema</p>
     </div>
-    <div class="linea__scroll">
-      <div class="linea__pista">
-        <div class="regla" id="regla" aria-hidden="true"></div>
-        <div class="pista" id="pista">
-          <span class="pista__nombre" aria-hidden="true">V1</span>
+
+    <div class="proyectos__rejilla">
+      <article class="proyecto" style="--clip: #d08aa6">
+        <div class="proyecto__marco">
+          <video src="media/influencer.mp4" poster="media/influencer.jpg" preload="none" playsinline></video>
+          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
+          <button class="proyecto__play" type="button" aria-label="Reproducir: Moda y lifestyle">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="proyecto__dur">01:44</span>
+          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
         </div>
-        <div class="cabezal" id="cabezal" aria-hidden="true"></div>
-      </div>
+        <p class="proyecto__cat">Moda · Contenido de influencer</p>
+        <h3 class="proyecto__titulo">Andrea Álvarez · Moda y lifestyle</h3>
+        <p class="proyecto__tags">Transiciones · Subtítulos · Motion graphics · Humor</p>
+      </article>
+
+      <article class="proyecto" style="--clip: #c9a45c">
+        <div class="proyecto__marco">
+          <video src="media/aurea.mp4" poster="media/aurea.jpg" preload="none" playsinline></video>
+          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
+          <button class="proyecto__play" type="button" aria-label="Reproducir: Comercial de perfume AURÉA">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="proyecto__dur">00:28 · sin audio</span>
+          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
+        </div>
+        <p class="proyecto__cat">Comercial de perfume</p>
+        <h3 class="proyecto__titulo">AURÉA · Concepto publicitario</h3>
+        <p class="proyecto__tags">Narrativa visual · Color · Ritmo · Branding</p>
+      </article>
+
+      <article class="proyecto" style="--clip: #8fae96">
+        <div class="proyecto__marco">
+          <video src="media/bienes-raices.mp4" poster="media/bienes-raices.jpg" preload="none" playsinline></video>
+          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
+          <button class="proyecto__play" type="button" aria-label="Reproducir: Bienes raíces">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="proyecto__dur">00:39</span>
+          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
+        </div>
+        <p class="proyecto__cat">Bienes raíces</p>
+        <h3 class="proyecto__titulo">Recorrido de propiedad</h3>
+        <p class="proyecto__tags">Títulos animados · Subtítulos · Ritmo de recorrido</p>
+      </article>
+
+      <article class="proyecto" style="--clip: #7f9fc8">
+        <div class="proyecto__marco">
+          <video src="media/podcast.mp4" poster="media/podcast.jpg" preload="none" playsinline></video>
+          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
+          <button class="proyecto__play" type="button" aria-label="Reproducir: Contenido informativo, formato podcast">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          </button>
+          <span class="proyecto__dur">00:31</span>
+          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
+        </div>
+        <p class="proyecto__cat">Contenido informativo</p>
+        <h3 class="proyecto__titulo">Formato podcast · Retención</h3>
+        <p class="proyecto__tags">Motion graphics · Subtítulos keyword · B-roll</p>
+      </article>
     </div>
   </section>
 
