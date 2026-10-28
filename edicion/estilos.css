@@ -68,8 +68,34 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--tenue);
 }
-/* Ancho máximo de cada proyecto: más chicos que el reel para que el reel siga siendo lo principal */
-.muro__piezas { display: grid; grid-template-columns: repeat(4, minmax(0, 364px)); justify-content: start; gap: 20px; align-items: start; }
+/* Carrusel 3D Coverflow de los proyectos: el del centro al frente, los de los lados girados */
+.carrusel { position: relative; padding: 8px 0 64px; overflow: hidden; }
+.carrusel .swiper-slide { width: 364px; }
+.carrusel .pieza { width: 100%; }
+.carrusel .swiper-slide-active .pieza__ver { opacity: 1; transform: none; background: var(--vino); color: var(--campo); }
+.carrusel__flecha {
+  position: absolute;
+  top: calc(50% - 60px);
+  z-index: 10;
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  font: 600 20px/1 "Archivo", system-ui, sans-serif;
+  color: var(--campo);
+  background: var(--tinta);
+  border: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background .2s, opacity .2s;
+}
+.carrusel__flecha:hover { background: var(--vino); }
+.carrusel__flecha--prev { left: 8px; }
+.carrusel__flecha--next { right: 8px; }
+.carrusel__flecha.swiper-button-disabled { opacity: .25; cursor: default; }
+.carrusel__puntos { position: absolute; left: 0; right: 0; bottom: 16px; display: flex; justify-content: center; gap: 10px; }
+.carrusel__puntos .swiper-pagination-bullet { width: 10px; height: 10px; margin: 0 !important; background: var(--tinta); opacity: .25; }
+.carrusel__puntos .swiper-pagination-bullet-active { background: var(--vino); opacity: 1; }
 
 /* flex en columna: un <button> centra su contenido en vertical y desalinearía las piezas */
 .pieza { all: unset; display: flex; flex-direction: column; align-self: start; cursor: pointer; border-radius: 4px; }
@@ -137,7 +163,8 @@ a { color: inherit; }
   .nombre { font-size: clamp(52px, 13.4vw, 136px); }
   .reel { width: min(100%, calc(78svh * 9 / 16)); }
   .muro { margin-top: 56px; }
-  .muro__piezas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
+  .carrusel .swiper-slide { width: 240px; }
+  .carrusel__flecha { display: none; }
   .pieza__ver { opacity: 1; transform: none; }
 }
 

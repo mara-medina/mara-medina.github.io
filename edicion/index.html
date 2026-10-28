@@ -15,7 +15,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilos.css?v=20261027f">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.css">
+<link rel="stylesheet" href="estilos.css?v=20261028b">
 </head>
 <body>
   <nav class="nav" aria-label="Principal">
@@ -37,7 +38,12 @@
   <main>
     <section class="muro" id="trabajo" aria-labelledby="t-proyectos">
       <h2 class="muro__titulo" id="t-proyectos">Proyectos completos</h2>
-      <div class="muro__piezas" id="proyectos"></div>
+      <div class="swiper carrusel">
+        <div class="swiper-wrapper" id="proyectos"></div>
+        <button type="button" class="carrusel__flecha carrusel__flecha--prev" aria-label="Proyecto anterior">←</button>
+        <button type="button" class="carrusel__flecha carrusel__flecha--next" aria-label="Proyecto siguiente">→</button>
+        <div class="carrusel__puntos"></div>
+      </div>
     </section>
 
     <section class="cierre" id="contacto">
@@ -62,6 +68,7 @@
     </div>
   </dialog>
 
-<script src="app.js?v=20261027f"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11.1.14/swiper-bundle.min.js"></script>
+<script src="app.js?v=20261028b"></script>
 </body>
 </html>
