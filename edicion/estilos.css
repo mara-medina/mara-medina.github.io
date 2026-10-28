@@ -69,7 +69,7 @@ a { color: inherit; }
   color: var(--tenue);
 }
 /* Ancho máximo de cada proyecto: más chicos que el reel para que el reel siga siendo lo principal */
-.muro__piezas { display: grid; grid-template-columns: repeat(4, minmax(0, 280px)); justify-content: start; gap: 20px; align-items: start; }
+.muro__piezas { display: grid; grid-template-columns: repeat(4, minmax(0, 364px)); justify-content: start; gap: 20px; align-items: start; }
 
 /* flex en columna: un <button> centra su contenido en vertical y desalinearía las piezas */
 .pieza { all: unset; display: flex; flex-direction: column; align-self: start; cursor: pointer; border-radius: 4px; }
