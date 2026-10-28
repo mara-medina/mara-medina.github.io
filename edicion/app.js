@@ -15,7 +15,8 @@ function crearPieza(p, i) {
   b.type = "button";
   b.className = "pieza" + (i === 0 ? " pieza--reel" : "");
   b.setAttribute("aria-label", `Ver ${p.tema}: ${p.titulo}, ${p.dur}${p.audio ? "" : ", sin audio"}`);
-  const fuente = i === 0 ? `media/${p.id}.mp4` : `media/previa/${p.id}.mp4`;
+  // El reel de la cabecera usa una versión ligera (se ve chico y sin sonido); el reproductor abre la de alta calidad
+  const fuente = i === 0 ? `media/${p.id}-fondo.mp4` : `media/previa/${p.id}.mp4`;
   b.innerHTML = `<span class="pieza__marco">
       <video src="${fuente}" poster="media/${p.id}.jpg" muted loop playsinline preload="${i === 0 ? "auto" : "metadata"}" ${quieto ? "" : "autoplay"}></video>
       <span class="pieza__ver">${i === 0 ? "▶ Ver con sonido" : "▶ Ver completo"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
