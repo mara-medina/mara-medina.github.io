@@ -8,8 +8,8 @@ const PIEZAS = [
 ];
 const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// El reel corre completo y sin sonido en la cabecera (clic: se abre con sonido en el visor).
-// Los proyectos muestran un loop de 4 s y se reproducen completos dentro del carrusel.
+// El reel corre completo y sin sonido en la cabecera; los proyectos muestran un loop de 4 s.
+// Al hacer clic, cualquiera se abre completo con sonido en el reproductor.
 PIEZAS.forEach((p, i) => {
   const b = document.createElement("button");
   b.type = "button";
@@ -18,7 +18,7 @@ PIEZAS.forEach((p, i) => {
   const fuente = i === 0 ? `media/${p.id}.mp4` : `media/previa/${p.id}.mp4`;
   b.innerHTML = `<span class="pieza__marco">
       <video src="${fuente}" poster="media/${p.id}.jpg" muted loop playsinline preload="${i === 0 ? "auto" : "metadata"}" ${quieto ? "" : "autoplay"}></video>
-      <span class="pieza__ver">${i === 0 ? "▶ Ver con sonido" : "▶ Reproducir"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
+      <span class="pieza__ver">${i === 0 ? "▶ Ver con sonido" : "▶ Ver completo"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
     </span>
     <span class="pieza__tema">${p.tema}</span><span class="pieza__titulo">${p.titulo}</span><span class="pieza__rol">${p.rol}</span>`;
   if (i === 0) {
@@ -26,12 +26,11 @@ PIEZAS.forEach((p, i) => {
     document.getElementById("reel").appendChild(b);
     return;
   }
-  // Los proyectos van en el carrusel: un clic lo centra y lo reproduce completo ahí mismo
+  // Los proyectos van en el carrusel: un clic lo centra y lo abre completo en el reproductor
   const slide = document.createElement("div");
   slide.className = "swiper-slide";
   slide.appendChild(b);
-  b.setAttribute("aria-label", `Reproducir ${p.tema}: ${p.titulo}, ${p.dur}${p.audio ? "" : ", sin audio"}`);
-  b.onclick = () => reproducir(i - 1, p);
+  b.onclick = () => elegir(i - 1, p);
   document.getElementById("proyectos").appendChild(slide);
 });
 const loops = [...document.querySelectorAll(".pieza video")];
@@ -51,40 +50,12 @@ const carrusel = new Swiper(".carrusel", {
   a11y: { prevSlideMessage: "Proyecto anterior", nextSlideMessage: "Proyecto siguiente", paginationBulletMessage: "Ir al proyecto {{index}}" },
 });
 
-// Reproducción dentro del carrusel: el proyecto elegido pasa del loop de 4 s al video completo con sonido
-let sonando = null;
-function aPrevia(slideEl) {
-  const v = slideEl.querySelector("video"), p = PIEZAS[[...carrusel.slides].indexOf(slideEl) + 1];
-  v.src = `media/previa/${p.id}.mp4`;
-  v.muted = true;
-  v.loop = true;
-  slideEl.classList.remove("sonando", "pausado");
-  slideEl.querySelector(".pieza__ver").textContent = `▶ Reproducir · ${p.dur}${p.audio ? "" : " · sin audio"}`;
-  if (!quieto) v.play().catch(() => {});
+// Clic en un proyecto: si está a un lado, primero se centra y al llegar se abre en el reproductor
+function elegir(indice, p) {
+  if (carrusel.activeIndex === indice) return abrir(p);
+  carrusel.once("slideChangeTransitionEnd", () => abrir(p));
+  carrusel.slideTo(indice);
 }
-function reproducir(indice, p) {
-  const slideEl = carrusel.slides[indice], v = slideEl.querySelector("video"), pill = slideEl.querySelector(".pieza__ver");
-  if (carrusel.activeIndex !== indice) carrusel.slideTo(indice);
-  // Si ya es el que suena, el clic pausa o reanuda
-  if (sonando === slideEl) {
-    if (v.paused) { v.play().catch(() => {}); slideEl.classList.remove("pausado"); pill.textContent = "❚❚ Pausa"; }
-    else { v.pause(); slideEl.classList.add("pausado"); pill.textContent = "▶ Continuar"; }
-    return;
-  }
-  if (sonando) aPrevia(sonando);
-  sonando = slideEl;
-  v.src = `media/${p.id}.mp4`;
-  v.loop = false;
-  v.muted = false;
-  slideEl.classList.add("sonando");
-  pill.textContent = p.audio ? "❚❚ Pausa" : "❚❚ Pausa · sin audio";
-  v.play().catch(() => {});
-  v.onended = () => { if (sonando === slideEl) { sonando = null; aPrevia(slideEl); } };
-}
-// Al moverse a otro proyecto, el que sonaba regresa a su loop sin sonido
-carrusel.on("slideChange", () => {
-  if (sonando && carrusel.slides[carrusel.activeIndex] !== sonando) { const s = sonando; sonando = null; aPrevia(s); }
-});
 
 const visor = document.getElementById("visor");
 const completo = visor.querySelector("video");
@@ -93,7 +64,6 @@ function abrir(p) {
   completo.poster = `media/${p.id}.jpg`;
   visor.querySelector(".visor__tema").textContent = p.tema + (p.audio ? "" : " · sin audio");
   visor.querySelector(".visor__titulo").textContent = p.titulo;
-  if (sonando) { const s = sonando; sonando = null; aPrevia(s); }
   loops.forEach(v => v.pause());
   visor.showModal();
   completo.play().catch(() => {});
