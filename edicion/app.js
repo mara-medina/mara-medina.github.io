@@ -51,7 +51,33 @@ visor.addEventListener("click", e => { if (e.target === visor) cerrar(); });
 visor.addEventListener("cancel", e => { e.preventDefault(); cerrar(); });
 visor.addEventListener("close", cerrar);
 
+// Copiar el correo al portapapeles, con respaldo para navegadores sin la API moderna
+document.querySelectorAll("[data-copiar]").forEach(b => {
+  const texto = b.textContent, aviso = b.parentElement.querySelector(".copiar__aviso");
+  b.addEventListener("click", async () => {
+    const valor = b.dataset.copiar;
+    try {
+      await navigator.clipboard.writeText(valor);
+    } catch {
+      const t = document.createElement("textarea");
+      t.value = valor;
+      t.setAttribute("readonly", "");
+      t.style.cssText = "position:fixed;opacity:0";
+      document.body.appendChild(t);
+      t.select();
+      document.execCommand("copy");
+      t.remove();
+    }
+    b.textContent = "¡Copiado!";
+    b.classList.add("copiado");
+    aviso.textContent = "Correo copiado al portapapeles";
+    clearTimeout(b._t);
+    b._t = setTimeout(() => { b.textContent = texto; b.classList.remove("copiado"); aviso.textContent = ""; }, 2000);
+  });
+});
+
 // Chrome pausa los videos de pestañas en segundo plano: al volver, los loops siguen
 document.addEventListener("visibilitychange", () => {
   if (!document.hidden && !visor.open && !quieto) loops.forEach(v => v.play().catch(() => {}));
 });
+

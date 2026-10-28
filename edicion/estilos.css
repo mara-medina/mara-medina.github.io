@@ -68,7 +68,8 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--tenue);
 }
-.muro__piezas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: start; }
+/* Ancho máximo de cada proyecto: más chicos que el reel para que el reel siga siendo lo principal */
+.muro__piezas { display: grid; grid-template-columns: repeat(4, minmax(0, 280px)); justify-content: start; gap: 20px; align-items: start; }
 
 /* flex en columna: un <button> centra su contenido en vertical y desalinearía las piezas */
 .pieza { all: unset; display: flex; flex-direction: column; align-self: start; cursor: pointer; border-radius: 4px; }
@@ -105,6 +106,20 @@ a { color: inherit; }
 .cierre h2 { margin: 0; font-weight: 800; font-stretch: 125%; font-size: clamp(36px, 6.4vw, 104px); line-height: .9; letter-spacing: -.03em; text-transform: uppercase; }
 .cierre a { width: fit-content; font-size: clamp(20px, 2.4vw, 32px); font-weight: 600; text-decoration-color: var(--vino); text-underline-offset: 6px; }
 .cierre p { margin: 18px 0 0; font-size: 14px; color: var(--tenue); }
+.correo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.copiar {
+  font: 600 14px/1 "Archivo", system-ui, sans-serif;
+  color: var(--tinta);
+  background: none;
+  border: 1.5px solid var(--tinta);
+  border-radius: 99px;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
+}
+.copiar:hover { background: var(--tinta); color: var(--campo); }
+.copiar.copiado, .copiar.copiado:hover { background: var(--vino); border-color: var(--vino); color: var(--campo); }
+.copiar__aviso { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 
 /* Visor del video completo */
 .visor { padding: 0; border: 0; background: transparent; max-width: none; max-height: none; }
