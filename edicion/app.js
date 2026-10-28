@@ -8,15 +8,17 @@ const PIEZAS = [
 ];
 const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-// Cada pieza muestra un loop corto sin sonido; al hacer clic se abre completa con sonido
+// El reel corre completo y sin sonido en la cabecera; los proyectos muestran un loop de 4 s.
+// Al hacer clic, cualquiera se abre completo con sonido.
 PIEZAS.forEach((p, i) => {
   const b = document.createElement("button");
   b.type = "button";
   b.className = "pieza" + (i === 0 ? " pieza--reel" : "");
   b.setAttribute("aria-label", `Ver ${p.tema}: ${p.titulo}, ${p.dur}${p.audio ? "" : ", sin audio"}`);
+  const fuente = i === 0 ? `media/${p.id}.mp4` : `media/previa/${p.id}.mp4`;
   b.innerHTML = `<span class="pieza__marco">
-      <video src="media/previa/${p.id}.mp4" poster="media/${p.id}.jpg" muted loop playsinline ${quieto ? "" : "autoplay"}></video>
-      <span class="pieza__ver">${i === 0 ? "Ver reel completo" : "Ver completo"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
+      <video src="${fuente}" poster="media/${p.id}.jpg" muted loop playsinline preload="${i === 0 ? "auto" : "metadata"}" ${quieto ? "" : "autoplay"}></video>
+      <span class="pieza__ver">${i === 0 ? "▶ Ver con sonido" : "Ver completo"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
     </span>
     <span class="pieza__tema">${p.tema}</span><span class="pieza__titulo">${p.titulo}</span><span class="pieza__rol">${p.rol}</span>`;
   b.onclick = () => abrir(p);

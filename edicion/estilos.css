@@ -24,43 +24,41 @@ a { color: inherit; }
 .nav a { text-decoration: none; }
 .nav a:hover { color: var(--vino); }
 
-/* Cabecera */
-.nombre {
+/* Cabecera: nombre a la izquierda y el demo reel, la pieza principal, a la derecha */
+.cabecera {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 32px;
+  align-items: end;
   margin: 2vh var(--g) 0;
+}
+.nombre {
+  margin: 0;
   font-weight: 800;
   font-stretch: 125%;
-  font-size: clamp(56px, 13.4vw, 220px);
+  font-size: clamp(52px, 7.4vw, 136px);
   line-height: .82;
   letter-spacing: -.035em;
   text-transform: uppercase;
 }
 .bajada {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px 32px;
-  margin: 24px var(--g) 0;
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
   padding-top: 14px;
   border-top: 1.5px solid var(--tinta);
 }
-.bajada p { margin: 0; max-width: 46ch; font-size: clamp(17px, 1.5vw, 21px); }
-.bajada a { font-weight: 600; font-size: clamp(17px, 1.5vw, 21px); text-decoration-color: var(--vino); text-underline-offset: 5px; }
+.bajada p { margin: 0; max-width: 40ch; font-size: clamp(17px, 1.5vw, 21px); }
+.bajada a { width: fit-content; font-weight: 600; font-size: clamp(17px, 1.5vw, 21px); text-decoration-color: var(--vino); text-underline-offset: 5px; }
 
-/* Muro: el reel a la izquierda, los cuatro proyectos a la derecha, todo a la misma altura */
-.muro {
-  display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
-  gap: 0 16px;
-  align-items: start;
-  margin: 48px var(--g) 0;
-  scroll-margin-top: 24px;
-}
-/* Los cuatro proyectos comparten las columnas del muro para medir lo mismo que el reel */
-.grupo--proyectos { grid-column: span 4; display: grid; grid-template-columns: subgrid; }
-.grupo--proyectos .grupo__titulo { grid-column: 1 / -1; }
-.grupo--proyectos .grupo__piezas { display: contents; }
-.grupo__titulo {
-  margin: 0 0 12px;
+.reel { justify-self: center; width: min(100%, calc((100svh - 200px) * 9 / 16), 430px); }
+
+/* Proyectos completos: los cuatro en una fila debajo del reel */
+.muro { margin: 72px var(--g) 0; scroll-margin-top: 24px; }
+.muro__titulo {
+  margin: 0 0 14px;
+  padding-top: 14px;
+  border-top: 1.5px solid var(--tinta);
   font-weight: 700;
   font-stretch: 112%;
   font-size: 13px;
@@ -68,6 +66,7 @@ a { color: inherit; }
   text-transform: uppercase;
   color: var(--tenue);
 }
+.muro__piezas { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: start; }
 
 /* flex en columna: un <button> centra su contenido en vertical y desalinearía las piezas */
 .pieza { all: unset; display: flex; flex-direction: column; align-self: start; cursor: pointer; border-radius: 4px; }
@@ -94,9 +93,10 @@ a { color: inherit; }
 .pieza__titulo { margin-top: 2px; font-size: 15px; }
 .pieza__rol { margin-top: 2px; font-size: 13px; color: var(--tenue); }
 
-/* El reel es el principal: su botón siempre está a la vista y va en el color de acento */
-.pieza--reel .pieza__ver { opacity: 1; transform: none; background: var(--vino); color: var(--campo); }
-.pieza--reel .pieza__tema { color: var(--vino); }
+/* El reel es el principal: más grande, con su botón siempre a la vista en el color de acento */
+.pieza--reel .pieza__ver { opacity: 1; transform: none; left: 14px; bottom: 14px; padding: 10px 16px; font-size: 14px; background: var(--vino); color: var(--campo); }
+.pieza--reel:hover video, .pieza--reel:focus-visible video { transform: none; }
+.pieza--reel .pieza__tema { color: var(--vino); font-size: 15px; }
 
 /* Cierre */
 .cierre { display: grid; gap: 8px; margin: 96px var(--g) 0; padding: 40px 0 28px; border-top: 1.5px solid var(--tinta); }
@@ -116,10 +116,11 @@ a { color: inherit; }
 
 /* Tablet y celular */
 @media (max-width: 1000px) {
-  .muro { grid-template-columns: 1fr; gap: 40px; }
-  .grupo--reel .grupo__piezas { width: min(100%, 360px); }
-  .grupo--proyectos { grid-column: auto; display: block; }
-  .grupo--proyectos .grupo__piezas { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
+  .cabecera { grid-template-columns: 1fr; gap: 40px; }
+  .nombre { font-size: clamp(52px, 13.4vw, 136px); }
+  .reel { width: min(100%, calc(78svh * 9 / 16)); }
+  .muro { margin-top: 56px; }
+  .muro__piezas { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 12px; }
   .pieza__ver { opacity: 1; transform: none; }
 }
 
