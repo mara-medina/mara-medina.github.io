@@ -36,16 +36,16 @@ PIEZAS.forEach((p, i) => {
 });
 const loops = [...document.querySelectorAll(".pieza video")];
 
+// Carrusel plano: sin efecto 3D (con profundidad los laterales quedaban detrás y no recibían clics)
 const carrusel = new Swiper(".carrusel", {
-  effect: "coverflow",
   centeredSlides: true,
+  spaceBetween: 12,
+  breakpoints: { 1001: { spaceBetween: 24 } },
   slidesPerView: "auto",
   initialSlide: 1,
   grabCursor: true,
   speed: quieto ? 0 : 500,
   keyboard: { enabled: true },
-  // Plano: sin giro; los laterales solo se ven un poco más pequeños
-  coverflowEffect: { rotate: 0, stretch: -44, depth: 140, modifier: 1, slideShadows: false },
   navigation: { prevEl: ".carrusel__flecha--prev", nextEl: ".carrusel__flecha--next" },
   pagination: { el: ".carrusel__puntos", clickable: true },
   a11y: { prevSlideMessage: "Proyecto anterior", nextSlideMessage: "Proyecto siguiente", paginationBulletMessage: "Ir al proyecto {{index}}" },
