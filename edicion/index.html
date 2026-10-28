@@ -4,146 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Mara Medina · Edición de video</title>
-<meta name="description" content="Mara Medina, editora de video: short-form, comerciales y motion graphics.">
+<meta name="description" content="Mara Medina, editora de video: short-form, comerciales y motion graphics para marcas y creadores.">
 <meta property="og:title" content="Mara Medina · Edición de video">
 <meta property="og:description" content="Short-form, comerciales y motion graphics.">
 <meta property="og:image" content="media/demo-reel.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="estilos.css">
 </head>
 <body>
+  <nav class="nav" aria-label="Principal">
+    <span>Edición de video</span>
+    <ul><li><a href="#trabajo">Trabajo</a></li><li><a href="#contacto">Contacto</a></li></ul>
+  </nav>
 
-<header class="barra">
-  <span class="barra__marca">Mara Medina <span class="sep">//</span> Edición 2026</span>
-  <span class="barra__tc" aria-hidden="true">TC <span id="tc">00:00:00:00</span></span>
-  <a class="barra__link" href="#contacto">Contacto</a>
-</header>
+  <header class="cabecera">
+    <h1 class="nombre">Mara<br>Medina</h1>
+    <div class="bajada">
+      <p>Editora de video. Short-form, comerciales y motion graphics para marcas y creadores.</p>
+      <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
+    </div>
+  </header>
 
-<main>
-  <section class="sala" aria-label="Reproductor">
-    <div class="intro">
-      <h1 class="nombre">Mara Medina</h1>
-      <p class="oficio">Editora de video</p>
-      <p class="resumen">Edito short-form, comerciales y motion graphics para marcas y creadores. Este es mi demo reel; abajo están los proyectos completos, uno por tema.</p>
+  <main>
+    <section class="muro" id="trabajo" aria-label="Trabajo">
+      <div class="grupo grupo--reel">
+        <h2 class="grupo__titulo">Demo reel</h2>
+        <div class="grupo__piezas" id="reel"></div>
+      </div>
+      <div class="grupo grupo--proyectos">
+        <h2 class="grupo__titulo">Proyectos completos</h2>
+        <div class="grupo__piezas" id="proyectos"></div>
+      </div>
+    </section>
 
-      <div class="ficha">
-        <p class="ficha__cat">Demo reel 2026</p>
-        <p class="ficha__titulo">Short-form · Comerciales · Motion graphics</p>
-        <p class="ficha__tags">Lo mejor de cada proyecto en un solo corte</p>
-        <dl class="ficha__specs">
-          <div><dt>Duración</dt><dd>01:58</dd></div>
-          <div><dt>Formato</dt><dd>1080×1920 · 30 fps</dd></div>
-          <div><dt>Audio</dt><dd>Estéreo</dd></div>
-        </dl>
+    <section class="cierre" id="contacto">
+      <h2>¿Editamos algo?</h2>
+      <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
+      <a href="https://wa.me/13613336608" target="_blank" rel="noopener">WhatsApp +1 (361) 333-6608</a>
+      <p>© 2026 Mara Medina</p>
+    </section>
+  </main>
+
+  <dialog class="visor" id="visor" aria-label="Video completo">
+    <div class="visor__caja">
+      <video controls playsinline></video>
+      <div class="visor__pie">
+        <div><p class="visor__tema"></p><p class="visor__titulo"></p></div>
+        <button type="button" class="visor__cerrar">Cerrar</button>
       </div>
     </div>
-
-    <div class="monitor">
-      <div class="monitor__marco">
-        <video id="video" src="media/demo-reel.mp4" playsinline muted preload="metadata" poster="media/demo-reel.jpg"></video>
-        <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
-        <button class="monitor__play" id="play-grande" type="button" aria-label="Reproducir">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-        </button>
-      </div>
-      <div class="transporte">
-        <button type="button" id="btn-play" aria-label="Reproducir">
-          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          <svg class="i-pausa" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
-        </button>
-        <span class="transporte__tc"><span id="clip-tc">00:00</span> / <span id="clip-dur">00:00</span></span>
-        <button type="button" id="btn-sonido" class="sonido" aria-pressed="false">Activar sonido</button>
-      </div>
-    </div>
-  </section>
-
-  <section class="proyectos" id="proyectos" aria-labelledby="proyectos-titulo">
-    <div class="proyectos__cab">
-      <h2 id="proyectos-titulo">Proyectos completos</h2>
-      <p class="proyectos__nota">Cada pieza de principio a fin, por tema</p>
-    </div>
-
-    <div class="proyectos__rejilla">
-      <article class="proyecto" style="--clip: #d08aa6">
-        <div class="proyecto__marco">
-          <video src="media/influencer.mp4" poster="media/influencer.jpg" preload="none" playsinline></video>
-          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
-          <button class="proyecto__play" type="button" aria-label="Reproducir: Moda y lifestyle">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="proyecto__dur">01:44</span>
-          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
-        </div>
-        <p class="proyecto__cat">Moda · Contenido de influencer</p>
-        <h3 class="proyecto__titulo">Andrea Álvarez · Moda y lifestyle</h3>
-        <p class="proyecto__tags">Transiciones · Subtítulos · Motion graphics · Humor</p>
-      </article>
-
-      <article class="proyecto" style="--clip: #c9a45c">
-        <div class="proyecto__marco">
-          <video src="media/aurea.mp4" poster="media/aurea.jpg" preload="none" playsinline></video>
-          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
-          <button class="proyecto__play" type="button" aria-label="Reproducir: Comercial de perfume AURÉA">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="proyecto__dur">00:28 · sin audio</span>
-          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
-        </div>
-        <p class="proyecto__cat">Comercial de perfume</p>
-        <h3 class="proyecto__titulo">AURÉA · Concepto publicitario</h3>
-        <p class="proyecto__tags">Narrativa visual · Color · Ritmo · Branding</p>
-      </article>
-
-      <article class="proyecto" style="--clip: #8fae96">
-        <div class="proyecto__marco">
-          <video src="media/bienes-raices.mp4" poster="media/bienes-raices.jpg" preload="none" playsinline></video>
-          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
-          <button class="proyecto__play" type="button" aria-label="Reproducir: Bienes raíces">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="proyecto__dur">00:39</span>
-          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
-        </div>
-        <p class="proyecto__cat">Bienes raíces</p>
-        <h3 class="proyecto__titulo">Recorrido de propiedad</h3>
-        <p class="proyecto__tags">Títulos animados · Subtítulos · Ritmo de recorrido</p>
-      </article>
-
-      <article class="proyecto" style="--clip: #7f9fc8">
-        <div class="proyecto__marco">
-          <video src="media/podcast.mp4" poster="media/podcast.jpg" preload="none" playsinline></video>
-          <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
-          <button class="proyecto__play" type="button" aria-label="Reproducir: Contenido informativo, formato podcast">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-          </button>
-          <span class="proyecto__dur">00:31</span>
-          <span class="proyecto__avance" aria-hidden="true"><span></span></span>
-        </div>
-        <p class="proyecto__cat">Contenido informativo</p>
-        <h3 class="proyecto__titulo">Formato podcast · Retención</h3>
-        <p class="proyecto__tags">Motion graphics · Subtítulos keyword · B-roll</p>
-      </article>
-    </div>
-  </section>
-
-  <section class="contacto" id="contacto" aria-labelledby="contacto-titulo">
-    <h2 id="contacto-titulo">¿Tienes material para editar?</h2>
-    <p class="contacto__texto">Escríbeme con el formato, la duración y la fecha de entrega.</p>
-    <ul class="contacto__lista">
-      <li><span class="contacto__medio">Correo</span><a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a></li>
-      <li><span class="contacto__medio">WhatsApp</span><a href="https://wa.me/13613336608" target="_blank" rel="noopener">+1 (361) 333-6608</a></li>
-    </ul>
-  </section>
-</main>
-
-<footer class="pie">
-  <span>© 2026 Mara Medina</span>
-  <!-- PENDIENTE: activar cuando exista el subdominio de personajes
-  <a href="https://personajes.maraportafolio.com">También hago diseño de personajes →</a> -->
-  <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
-</footer>
+  </dialog>
 
 <script src="app.js"></script>
 </body>

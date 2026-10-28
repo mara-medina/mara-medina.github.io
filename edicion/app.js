@@ -1,54 +1,50 @@
-const FPS = 30;
-const $ = id => document.getElementById(id);
-const video = $("video"), sala = document.querySelector(".sala"), btnSonido = $("btn-sonido");
+// Categorías y etiquetas tomadas del demo reel de Mara
+const PIEZAS = [
+  { id: "demo-reel", tema: "Demo reel 2026", titulo: "Short-form · Comerciales · Motion graphics", rol: "Edición · Motion · Color", dur: "1:58", audio: true },
+  { id: "influencer", tema: "Moda", titulo: "Andrea Álvarez · Moda y lifestyle", rol: "Transiciones · Subtítulos · Motion graphics · Humor", dur: "1:44", audio: true },
+  { id: "aurea", tema: "Comercial de perfume", titulo: "AURÉA · Concepto publicitario", rol: "Narrativa visual · Color · Ritmo · Branding", dur: "0:28", audio: false },
+  { id: "bienes-raices", tema: "Bienes raíces", titulo: "Recorrido de propiedad", rol: "Títulos animados · Subtítulos · Ritmo de recorrido", dur: "0:39", audio: true },
+  { id: "podcast", tema: "Podcast", titulo: "Contenido informativo · Retención", rol: "Motion graphics · Subtítulos keyword · B-roll", dur: "0:31", audio: true },
+];
+const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-const mmss = s => `${String(Math.floor(s / 60)).padStart(2, "0")}:${String(Math.floor(s % 60)).padStart(2, "0")}`;
-const timecode = s => {
-  const f = Math.floor(s * FPS);
-  const p = n => String(n).padStart(2, "0");
-  return `${p(Math.floor(f / (FPS * 3600)))}:${p(Math.floor(f / (FPS * 60)) % 60)}:${p(Math.floor(f / FPS) % 60)}:${p(f % FPS)}`;
-};
-
-// Demo reel: arranca solo y sin sonido
-function actualizar() {
-  $("tc").textContent = timecode(video.currentTime || 0);
-  $("clip-tc").textContent = mmss(video.currentTime || 0);
-}
-function alternar() { video.paused ? video.play().catch(() => {}) : video.pause(); }
-
-video.addEventListener("loadedmetadata", () => { $("clip-dur").textContent = mmss(video.duration); });
-video.addEventListener("timeupdate", actualizar);
-video.addEventListener("play", () => { sala.classList.add("reproduciendo"); pausarProyectos(); });
-video.addEventListener("pause", () => sala.classList.remove("reproduciendo"));
-video.addEventListener("click", alternar);
-$("btn-play").addEventListener("click", alternar);
-$("play-grande").addEventListener("click", () => video.play().catch(() => {}));
-btnSonido.addEventListener("click", () => {
-  video.muted = !video.muted;
-  btnSonido.setAttribute("aria-pressed", !video.muted);
-  btnSonido.textContent = video.muted ? "Activar sonido" : "Sonido activado";
-  if (!video.muted && video.paused) video.play().catch(() => {});
+// Cada pieza muestra un loop corto sin sonido; al hacer clic se abre completa con sonido
+PIEZAS.forEach((p, i) => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "pieza" + (i === 0 ? " pieza--reel" : "");
+  b.setAttribute("aria-label", `Ver ${p.tema}: ${p.titulo}, ${p.dur}${p.audio ? "" : ", sin audio"}`);
+  b.innerHTML = `<span class="pieza__marco">
+      <video src="media/previa/${p.id}.mp4" poster="media/${p.id}.jpg" muted loop playsinline ${quieto ? "" : "autoplay"}></video>
+      <span class="pieza__ver">${i === 0 ? "Ver reel completo" : "Ver completo"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
+    </span>
+    <span class="pieza__tema">${p.tema}</span><span class="pieza__titulo">${p.titulo}</span><span class="pieza__rol">${p.rol}</span>`;
+  b.onclick = () => abrir(p);
+  document.getElementById(i === 0 ? "reel" : "proyectos").appendChild(b);
 });
+const loops = [...document.querySelectorAll(".pieza video")];
 
-// Proyectos: cada uno con su reproductor; solo suena uno a la vez
-const proyectos = [...document.querySelectorAll(".proyecto")];
-function pausarProyectos(excepto) {
-  proyectos.forEach(p => { const v = p.querySelector("video"); if (v !== excepto && !v.paused) v.pause(); });
+const visor = document.getElementById("visor");
+const completo = visor.querySelector("video");
+function abrir(p) {
+  completo.src = `media/${p.id}.mp4`;
+  completo.poster = `media/${p.id}.jpg`;
+  visor.querySelector(".visor__tema").textContent = p.tema + (p.audio ? "" : " · sin audio");
+  visor.querySelector(".visor__titulo").textContent = p.titulo;
+  loops.forEach(v => v.pause());
+  visor.showModal();
+  completo.play().catch(() => {});
 }
-proyectos.forEach(p => {
-  const v = p.querySelector("video");
-  const barra = p.querySelector(".proyecto__avance span");
-  const alternarProyecto = () => (v.paused ? v.play().catch(() => {}) : v.pause());
-  p.querySelector(".proyecto__play").addEventListener("click", alternarProyecto);
-  v.addEventListener("click", alternarProyecto);
-  v.addEventListener("play", () => {
-    p.classList.add("reproduciendo");
-    pausarProyectos(v);
-    if (!video.paused) video.pause();
-  });
-  v.addEventListener("pause", () => p.classList.remove("reproduciendo"));
-  v.addEventListener("timeupdate", () => { barra.style.width = `${(v.currentTime / v.duration) * 100 || 0}%`; });
-  v.addEventListener("ended", () => { v.currentTime = 0; barra.style.width = "0"; });
-});
-
-if (!matchMedia("(prefers-reduced-motion: reduce)").matches) video.play().catch(() => {});
+// El cierre no depende del evento "close" (algunos navegadores no lo disparan): todas las vías pasan por aquí
+function cerrar() {
+  if (visor.open) visor.close();
+  if (!completo.getAttribute("src")) return;
+  completo.pause();
+  completo.removeAttribute("src");
+  completo.load();
+  if (!quieto) loops.forEach(v => v.play().catch(() => {}));
+}
+visor.querySelector(".visor__cerrar").onclick = cerrar;
+visor.addEventListener("click", e => { if (e.target === visor) cerrar(); });
+visor.addEventListener("cancel", e => { e.preventDefault(); cerrar(); });
+visor.addEventListener("close", cerrar);
