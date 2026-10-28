@@ -71,9 +71,12 @@ a { color: inherit; }
 /* Carrusel 3D Coverflow de los proyectos: el del centro al frente, los de los lados girados */
 .carrusel { position: relative; padding: 8px 0 64px; overflow: hidden; }
 .carrusel .swiper-slide { width: 364px; }
-.carrusel .pieza { width: 100%; transition: transform .5s cubic-bezier(.22, .61, .36, 1), opacity .5s; }
-/* Los laterales se ven un poco más pequeños; el del centro, completo */
-.carrusel .swiper-slide:not(.swiper-slide-active) .pieza { transform: scale(.86); opacity: .8; }
+/* El tamaño y la posición de cada video los calcula app.js según su distancia al centro */
+.carrusel .pieza { width: 100%; transform-origin: center 45%; transition-property: transform; transition-timing-function: cubic-bezier(.22, .61, .36, 1); }
+/* El del frente sobresale: sombra para separarlo de los de atrás; solo él muestra su texto */
+.carrusel .swiper-slide-active .pieza__marco { box-shadow: 0 24px 48px -20px rgba(28, 23, 20, .55); }
+.carrusel .pieza__tema, .carrusel .pieza__titulo, .carrusel .pieza__rol { transition: opacity .3s; }
+.carrusel .swiper-slide:not(.swiper-slide-active) :is(.pieza__tema, .pieza__titulo, .pieza__rol) { opacity: 0; }
 .carrusel .swiper-slide-active .pieza__ver { opacity: 1; transform: none; background: var(--vino); color: var(--campo); }
 .carrusel__flecha {
   position: absolute;

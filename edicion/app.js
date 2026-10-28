@@ -53,11 +53,27 @@ function marcarPunto(sw) {
   botonesPunto.forEach((b, i) => b.classList.toggle("swiper-pagination-bullet-active", i === sw.realIndex % N));
 }
 
+// Baraja: el del centro al frente y a tamaño completo; cada paso hacia los lados se ve más chico,
+// queda detrás y se acerca un poco al centro para encimarse. Todo en 2D para que los clics sigan llegando.
+function apilar(sw) {
+  sw.slides.forEach(sl => {
+    const p = sl.progress, d = Math.min(Math.abs(p), 3);
+    const acercar = d > 1 ? (d - 1) * 50 * Math.sign(p) : 0;
+    sl.style.zIndex = 100 - Math.round(d * 10);
+    sl.querySelector(".pieza").style.transform = `translateX(${acercar}px) scale(${1 - 0.13 * d})`;
+  });
+}
+function duracion(sw, ms) {
+  sw.slides.forEach(sl => { sl.querySelector(".pieza").style.transitionDuration = ms + "ms"; });
+}
+
 // Carrusel plano: sin efecto 3D (con profundidad los laterales quedaban detrás y no recibían clics)
 const carrusel = new Swiper(".carrusel", {
   centeredSlides: true,
-  spaceBetween: 12,
-  breakpoints: { 1001: { spaceBetween: 24 } },
+  // Separación negativa: los videos se enciman un poco, como una baraja abierta
+  spaceBetween: -40,
+  breakpoints: { 1001: { spaceBetween: -90 } },
+  watchSlidesProgress: true,
   slidesPerView: "auto",
   initialSlide: 1,
   loop: true,
@@ -66,7 +82,7 @@ const carrusel = new Swiper(".carrusel", {
   keyboard: { enabled: true },
   navigation: { prevEl: ".carrusel__flecha--prev", nextEl: ".carrusel__flecha--next" },
   a11y: { prevSlideMessage: "Proyecto anterior", nextSlideMessage: "Proyecto siguiente" },
-  on: { init: marcarPunto, realIndexChange: marcarPunto },
+  on: { init: marcarPunto, realIndexChange: marcarPunto, progress: apilar, setTransition: duracion },
 });
 
 // Un punto lleva a la copia de ese proyecto que quede más cerca, para no dar media vuelta
