@@ -48,3 +48,8 @@ visor.querySelector(".visor__cerrar").onclick = cerrar;
 visor.addEventListener("click", e => { if (e.target === visor) cerrar(); });
 visor.addEventListener("cancel", e => { e.preventDefault(); cerrar(); });
 visor.addEventListener("close", cerrar);
+
+// Chrome pausa los videos de pestañas en segundo plano: al volver, los loops siguen
+document.addEventListener("visibilitychange", () => {
+  if (!document.hidden && !visor.open && !quieto) loops.forEach(v => v.play().catch(() => {}));
+});
