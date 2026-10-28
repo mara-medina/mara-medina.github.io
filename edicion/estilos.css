@@ -32,6 +32,8 @@ a { color: inherit; }
   align-items: end;
   margin: 2vh var(--g) 0;
 }
+/* El nombre arranca arriba, a la altura del reel, no al pie */
+.presentacion { align-self: start; padding-top: clamp(8px, 4vh, 48px); }
 .nombre {
   margin: 0;
   font-weight: 800;
