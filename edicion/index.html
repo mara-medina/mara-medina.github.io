@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mara Medina · Edición de video</title>
+<meta name="description" content="Mara Medina, editora de video: short-form, comerciales y motion graphics.">
+<meta property="og:title" content="Mara Medina · Edición de video">
+<meta property="og:description" content="Short-form, comerciales y motion graphics.">
+<meta property="og:image" content="media/demo-reel.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600&family=Barlow:wght@400;500&family=Cormorant+Garamond:ital,wght@1,400;1,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<header class="barra">
+  <span class="barra__marca">Mara Medina <span class="sep">//</span> Edición 2026</span>
+  <span class="barra__tc" aria-hidden="true">TC <span id="tc">00:00:00:00</span></span>
+  <a class="barra__link" href="#contacto">Contacto</a>
+</header>
+
+<main>
+  <section class="sala" aria-label="Reproductor">
+    <div class="intro">
+      <h1 class="nombre">Mara Medina</h1>
+      <p class="oficio">Editora de video</p>
+      <p class="resumen">Edito short-form, comerciales y motion graphics para marcas y creadores. Abajo está la línea de tiempo con mis proyectos: elige uno y míralo completo.</p>
+
+      <div class="ficha" aria-live="polite">
+        <p class="ficha__cat" id="f-cat"></p>
+        <p class="ficha__titulo" id="f-titulo"></p>
+        <p class="ficha__tags" id="f-tags"></p>
+        <dl class="ficha__specs">
+          <div><dt>Duración</dt><dd id="f-dur"></dd></div>
+          <div><dt>Formato</dt><dd>1080×1920 · 30 fps</dd></div>
+          <div><dt>Audio</dt><dd id="f-audio"></dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="monitor">
+      <div class="monitor__marco">
+        <video id="video" playsinline muted preload="metadata" poster="media/demo-reel.jpg"></video>
+        <span class="esq esq--1"></span><span class="esq esq--2"></span><span class="esq esq--3"></span><span class="esq esq--4"></span>
+        <button class="monitor__play" id="play-grande" type="button" aria-label="Reproducir">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+      <div class="transporte">
+        <button type="button" id="btn-play" aria-label="Reproducir">
+          <svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="i-pausa" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 5h4v14H7zM13 5h4v14h-4z"/></svg>
+        </button>
+        <span class="transporte__tc"><span id="clip-tc">00:00</span> / <span id="clip-dur">00:00</span></span>
+        <button type="button" id="btn-sonido" class="sonido" aria-pressed="false">Activar sonido</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="linea" aria-labelledby="linea-titulo">
+    <div class="linea__cab">
+      <h2 id="linea-titulo">Secuencia</h2>
+      <span class="linea__nota">Cada clip mide lo que dura el video</span>
+    </div>
+    <div class="linea__scroll">
+      <div class="linea__pista">
+        <div class="regla" id="regla" aria-hidden="true"></div>
+        <div class="pista" id="pista">
+          <span class="pista__nombre" aria-hidden="true">V1</span>
+        </div>
+        <div class="cabezal" id="cabezal" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contacto" id="contacto" aria-labelledby="contacto-titulo">
+    <h2 id="contacto-titulo">¿Tienes material para editar?</h2>
+    <p class="contacto__texto">Escríbeme con el formato, la duración y la fecha de entrega.</p>
+    <ul class="contacto__lista">
+      <li><span class="contacto__medio">Correo</span><a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a></li>
+      <li><span class="contacto__medio">WhatsApp</span><a href="https://wa.me/13613336608" target="_blank" rel="noopener">+1 (361) 333-6608</a></li>
+    </ul>
+  </section>
+</main>
+
+<footer class="pie">
+  <span>© 2026 Mara Medina</span>
+  <!-- PENDIENTE: activar cuando exista el subdominio de personajes
+  <a href="https://personajes.maraportafolio.com">También hago diseño de personajes →</a> -->
+  <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
