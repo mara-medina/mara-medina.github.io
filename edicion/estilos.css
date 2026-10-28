@@ -96,7 +96,7 @@ a { color: inherit; }
 .carrusel__flecha--next { right: 8px; }
 .carrusel__flecha.swiper-button-disabled { opacity: .25; cursor: default; }
 .carrusel__puntos { position: absolute; left: 0; right: 0; bottom: 16px; display: flex; justify-content: center; gap: 10px; }
-.carrusel__puntos .swiper-pagination-bullet { width: 10px; height: 10px; margin: 0 !important; background: var(--tinta); opacity: .25; }
+.carrusel__puntos .swiper-pagination-bullet { width: 10px; height: 10px; margin: 0 !important; padding: 0; border: 0; cursor: pointer; background: var(--tinta); opacity: .25; }
 .carrusel__puntos .swiper-pagination-bullet-active { background: var(--vino); opacity: 1; }
 
 /* flex en columna: un <button> centra su contenido en vertical y desalinearía las piezas */
@@ -136,15 +136,19 @@ a { color: inherit; }
 .cierre p { margin: 18px 0 0; font-size: 14px; color: var(--tenue); }
 .correo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
 .copiar {
-  font: 600 14px/1 "Archivo", system-ui, sans-serif;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
   color: var(--tinta);
   background: none;
   border: 1.5px solid var(--tinta);
-  border-radius: 99px;
-  padding: 10px 16px;
+  border-radius: 50%;
   cursor: pointer;
   transition: background .2s, color .2s, border-color .2s;
 }
+.copiar svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .copiar:hover { background: var(--tinta); color: var(--campo); }
 .copiar.copiado, .copiar.copiado:hover { background: var(--vino); border-color: var(--vino); color: var(--campo); }
 .copiar__aviso { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }

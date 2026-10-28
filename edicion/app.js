@@ -10,7 +10,7 @@ const quieto = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 // El reel corre completo y sin sonido en la cabecera; los proyectos muestran un loop de 4 s.
 // Al hacer clic, cualquiera se abre completo con sonido en el reproductor.
-PIEZAS.forEach((p, i) => {
+function crearPieza(p, i) {
   const b = document.createElement("button");
   b.type = "button";
   b.className = "pieza" + (i === 0 ? " pieza--reel" : "");
@@ -21,19 +21,37 @@ PIEZAS.forEach((p, i) => {
       <span class="pieza__ver">${i === 0 ? "▶ Ver con sonido" : "▶ Ver completo"} · ${p.dur}${p.audio ? "" : " · sin audio"}</span>
     </span>
     <span class="pieza__tema">${p.tema}</span><span class="pieza__titulo">${p.titulo}</span><span class="pieza__rol">${p.rol}</span>`;
-  if (i === 0) {
-    b.onclick = () => abrir(p);
-    document.getElementById("reel").appendChild(b);
-    return;
-  }
-  // Los proyectos van en el carrusel: un clic lo centra y lo abre completo en el reproductor
+  return b;
+}
+const reel = crearPieza(PIEZAS[0], 0);
+reel.onclick = () => abrir(PIEZAS[0]);
+document.getElementById("reel").appendChild(reel);
+
+// Los proyectos van en el carrusel infinito. Swiper necesita más slides que los que caben a la vista
+// para dar la vuelta, así que los 4 proyectos se ponen dos veces; la copia no se anuncia ni recibe foco.
+const PROYECTOS = PIEZAS.slice(1);
+const N = PROYECTOS.length;
+for (let k = 0; k < N * 2; k++) {
+  const p = PROYECTOS[k % N];
+  const b = crearPieza(p, k % N + 1);
   const slide = document.createElement("div");
   slide.className = "swiper-slide";
+  if (k >= N) { slide.setAttribute("aria-hidden", "true"); b.tabIndex = -1; }
   slide.appendChild(b);
-  b.onclick = () => elegir(i - 1, p);
+  // Clic en un proyecto: si está a un lado, primero se centra y al llegar se abre en el reproductor
+  b.onclick = () => elegir(k, p);
   document.getElementById("proyectos").appendChild(slide);
-});
+}
 const loops = [...document.querySelectorAll(".pieza video")];
+
+// Puntos propios: siempre 4, uno por proyecto, aunque los slides estén duplicados
+const puntos = document.querySelector(".carrusel__puntos");
+puntos.innerHTML = PROYECTOS.map((p, i) => `<button type="button" class="swiper-pagination-bullet" aria-label="Ir a ${p.tema}"></button>`).join("");
+const botonesPunto = [...puntos.children];
+// Recibe el carrusel como parámetro: durante el arranque de Swiper la constante "carrusel" aún no existe
+function marcarPunto(sw) {
+  botonesPunto.forEach((b, i) => b.classList.toggle("swiper-pagination-bullet-active", i === sw.realIndex % N));
+}
 
 // Carrusel plano: sin efecto 3D (con profundidad los laterales quedaban detrás y no recibían clics)
 const carrusel = new Swiper(".carrusel", {
@@ -42,19 +60,27 @@ const carrusel = new Swiper(".carrusel", {
   breakpoints: { 1001: { spaceBetween: 24 } },
   slidesPerView: "auto",
   initialSlide: 1,
+  loop: true,
   grabCursor: true,
   speed: quieto ? 0 : 500,
   keyboard: { enabled: true },
   navigation: { prevEl: ".carrusel__flecha--prev", nextEl: ".carrusel__flecha--next" },
-  pagination: { el: ".carrusel__puntos", clickable: true },
-  a11y: { prevSlideMessage: "Proyecto anterior", nextSlideMessage: "Proyecto siguiente", paginationBulletMessage: "Ir al proyecto {{index}}" },
+  a11y: { prevSlideMessage: "Proyecto anterior", nextSlideMessage: "Proyecto siguiente" },
+  on: { init: marcarPunto, realIndexChange: marcarPunto },
 });
 
-// Clic en un proyecto: si está a un lado, primero se centra y al llegar se abre en el reproductor
-function elegir(indice, p) {
-  if (carrusel.activeIndex === indice) return abrir(p);
+// Un punto lleva a la copia de ese proyecto que quede más cerca, para no dar media vuelta
+botonesPunto.forEach((b, i) => b.addEventListener("click", () => {
+  const actual = carrusel.realIndex, total = N * 2;
+  const dist = k => Math.min(Math.abs(k - actual), total - Math.abs(k - actual));
+  carrusel.slideToLoop(dist(i) <= dist(i + N) ? i : i + N);
+}));
+
+// En modo infinito Swiper reordena los slides: se usa la posición real del slide (realIndex)
+function elegir(k, p) {
+  if (carrusel.realIndex === k) return abrir(p);
   carrusel.once("slideChangeTransitionEnd", () => abrir(p));
-  carrusel.slideTo(indice);
+  carrusel.slideToLoop(k);
 }
 
 const visor = document.getElementById("visor");
@@ -84,7 +110,7 @@ visor.addEventListener("close", cerrar);
 
 // Copiar el correo al portapapeles, con respaldo para navegadores sin la API moderna
 document.querySelectorAll("[data-copiar]").forEach(b => {
-  const texto = b.textContent, aviso = b.parentElement.querySelector(".copiar__aviso");
+  const icono = b.innerHTML, aviso = b.parentElement.querySelector(".copiar__aviso");
   b.addEventListener("click", async () => {
     const valor = b.dataset.copiar;
     try {
@@ -99,11 +125,11 @@ document.querySelectorAll("[data-copiar]").forEach(b => {
       document.execCommand("copy");
       t.remove();
     }
-    b.textContent = "¡Copiado!";
+    b.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
     b.classList.add("copiado");
     aviso.textContent = "Correo copiado al portapapeles";
     clearTimeout(b._t);
-    b._t = setTimeout(() => { b.textContent = texto; b.classList.remove("copiado"); aviso.textContent = ""; }, 2000);
+    b._t = setTimeout(() => { b.innerHTML = icono; b.classList.remove("copiado"); aviso.textContent = ""; }, 2000);
   });
 });
 
