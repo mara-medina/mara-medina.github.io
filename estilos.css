@@ -1,0 +1,126 @@
+/* Diseño de personajes: misma identidad que la página de edición, con los colores de Earth to Stella */
+:root {
+  --campo: #e7dad0;
+  --tinta: #1c1714;
+  --tenue: #6f625a;
+  --morado: #4a2d7a;
+  --planeta: #9cc7e6;
+  --g: clamp(16px, 3.4vw, 48px);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--campo); color: var(--tinta); font: 400 16px/1.5 "Archivo", system-ui, sans-serif; }
+a { color: inherit; }
+img { max-width: 100%; }
+:focus-visible { outline: 2px solid var(--morado); outline-offset: 3px; }
+
+/* Navegación */
+.nav { display: flex; justify-content: space-between; align-items: center; padding: 18px var(--g); font-size: 14px; }
+.nav ul { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+.nav a { text-decoration: none; }
+.nav a:hover { color: var(--morado); }
+
+/* Cabecera: nombre a la izquierda, Stella saltando frente a su planeta a la derecha */
+.cabecera { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; margin: 2vh var(--g) 0; min-height: calc(100svh - 120px); }
+.presentacion { align-self: start; padding-top: clamp(8px, 4vh, 48px); }
+.nombre { margin: 0; font-weight: 800; font-stretch: 125%; font-size: clamp(52px, 7.4vw, 136px); line-height: .82; letter-spacing: -.035em; text-transform: uppercase; }
+.bajada { display: grid; gap: 14px; margin-top: 28px; padding-top: 14px; border-top: 1.5px solid var(--tinta); }
+.bajada p { margin: 0; max-width: 40ch; font-size: clamp(17px, 1.5vw, 21px); }
+.bajada a { width: fit-content; font-weight: 600; font-size: clamp(17px, 1.5vw, 21px); text-decoration-color: var(--morado); text-underline-offset: 5px; }
+
+.estrella { position: relative; justify-self: center; width: min(100%, 520px); display: grid; place-items: center; padding: 24px 0; }
+.estrella__planeta { position: absolute; top: 50%; left: 50%; width: 82%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #c7e1f2, var(--planeta) 55%, #6f9fc8); }
+.estrella img { position: relative; width: 62%; height: auto; animation: flotar 4s ease-in-out infinite; }
+@keyframes flotar { 50% { transform: translateY(-12px) rotate(-2deg); } }
+
+/* Títulos de sección: misma línea que en la página de edición */
+.seccion__titulo { margin: 0 0 24px; padding-top: 14px; border-top: 1.5px solid var(--tinta); font-weight: 700; font-stretch: 112%; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--tenue); }
+main > section { margin: 88px var(--g) 0; scroll-margin-top: 24px; }
+
+/* Proyecto original */
+.proyecto__cuerpo { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.proyecto__poster { width: 100%; height: auto; border-radius: 6px; box-shadow: 0 24px 48px -24px rgba(28, 23, 20, .5); }
+.proyecto__logo { width: min(260px, 60%); height: auto; display: block; }
+.proyecto__tagline { margin: 18px 0 0; font-style: italic; font-size: clamp(20px, 2vw, 26px); color: var(--morado); }
+.proyecto__logline { margin: 14px 0 0; max-width: 58ch; font-size: 17px; }
+.proyecto__ficha { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; margin: 28px 0 0; max-width: 520px; }
+.proyecto__ficha dt { font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--tenue); }
+.proyecto__ficha dd { margin: 2px 0 0; font-weight: 600; }
+
+/* Personajes: cada uno sobre su propio color */
+.personajes__rejilla { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 24px; max-width: 1100px; margin: 0 auto; }
+.personaje { all: unset; display: flex; flex-direction: column; cursor: pointer; border-radius: 8px; }
+.personaje__marco { position: relative; display: grid; place-items: end center; aspect-ratio: 4 / 5; overflow: hidden; border-radius: 8px; background: var(--fondo); }
+.personaje__marco img { height: 92%; width: auto; max-width: 92%; object-fit: contain; transition: transform .4s cubic-bezier(.22, .61, .36, 1); transform-origin: bottom center; }
+.personaje--foto .personaje__marco img { height: 100%; width: 100%; max-width: none; object-fit: cover; }
+.personaje:hover .personaje__marco img, .personaje:focus-visible .personaje__marco img { transform: scale(1.05) translateY(-4px); }
+.personaje--foto:hover .personaje__marco img, .personaje--foto:focus-visible .personaje__marco img { transform: scale(1.03); }
+.personaje:focus-visible { outline: 2px solid var(--morado); outline-offset: 4px; }
+.personaje__nombre { margin-top: 12px; font-weight: 700; font-stretch: 112%; text-transform: uppercase; font-size: 15px; letter-spacing: .02em; }
+.personaje__rol { margin-top: 2px; font-size: 14px; color: var(--tenue); }
+
+/* Bocetos sobre papel */
+.bocetos__fila { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; max-width: 980px; margin: 0 auto; }
+.escenarios figure, .vineta figure { margin: 0; }
+.personaje--boceto .personaje__marco { aspect-ratio: 3 / 5; place-items: center; }
+.personaje--boceto .personaje__marco img { height: 94%; }
+figcaption { margin-top: 10px; font-size: 14px; color: var(--tenue); }
+
+/* Escenarios y cómic */
+.escenarios { display: grid; gap: 28px; }
+.escenarios figure, .vineta figure { max-width: 1100px; margin: 0 auto; width: 100%; }
+.escenarios img, .vineta img { display: block; width: 100%; height: auto; border-radius: 6px; }
+.escenarios .seccion__titulo { margin-bottom: 0; }
+
+/* Cierre */
+.cierre { display: grid; gap: 8px; margin-top: 96px !important; padding: 40px 0 28px; border-top: 1.5px solid var(--tinta); }
+.cierre h2 { margin: 0; font-weight: 800; font-stretch: 125%; font-size: clamp(36px, 6.4vw, 104px); line-height: .9; letter-spacing: -.03em; text-transform: uppercase; }
+.cierre a { width: fit-content; font-size: clamp(20px, 2.4vw, 32px); font-weight: 600; text-decoration-color: var(--morado); text-underline-offset: 6px; }
+.cierre p { margin: 18px 0 0; font-size: 14px; color: var(--tenue); }
+.cierre .cierre__otro { font-size: 16px; color: var(--tinta); }
+.cierre .cierre__otro a { font-size: inherit; }
+.correo { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.copiar { display: grid; place-items: center; width: 40px; height: 40px; padding: 0; color: var(--tinta); background: none; border: 1.5px solid var(--tinta); border-radius: 50%; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
+.copiar svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.copiar:hover { background: var(--tinta); color: var(--campo); }
+.copiar.copiado, .copiar.copiado:hover { background: var(--morado); border-color: var(--morado); color: var(--campo); }
+.copiar__aviso { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+
+/* Ficha de personaje */
+.ficha { padding: 0; border: 0; border-radius: 10px; max-width: min(860px, 92vw); background: var(--campo); color: var(--tinta); }
+.ficha::backdrop { background: rgba(28, 23, 20, .82); }
+.ficha__caja { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); }
+.ficha__imagen { display: grid; place-items: end center; min-height: 420px; padding: 24px 24px 0; background: var(--fondo); }
+.ficha__imagen img { max-height: 70vh; width: auto; object-fit: contain; }
+.ficha__imagen--foto { padding: 0; }
+.ficha__imagen--foto img { width: 100%; height: 100%; max-height: none; object-fit: cover; }
+.ficha__texto { padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; justify-content: center; }
+.ficha__rol { margin: 0; font-size: 12px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--tenue); }
+.ficha h3 { margin: 6px 0 0; font-weight: 800; font-stretch: 125%; font-size: clamp(28px, 3.4vw, 44px); line-height: .95; text-transform: uppercase; }
+.ficha__descripcion { margin: 16px 0 0; font-size: 17px; }
+.ficha__cerrar { align-self: start; margin-top: 24px; font: 600 14px/1 "Archivo", system-ui, sans-serif; color: var(--tinta); background: none; border: 1.5px solid var(--tinta); border-radius: 99px; padding: 10px 18px; cursor: pointer; }
+.ficha__cerrar:hover { background: var(--tinta); color: var(--campo); }
+
+/* Tablet y celular */
+@media (max-width: 1000px) {
+  .cabecera { grid-template-columns: 1fr; min-height: 0; gap: 24px; }
+  .nombre { font-size: clamp(52px, 13.4vw, 136px); }
+  .estrella { width: min(80%, 360px); }
+  .proyecto__cuerpo { grid-template-columns: 1fr; }
+  .proyecto__poster { width: min(100%, 320px); justify-self: center; }
+  .personajes__rejilla { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
+  .bocetos__fila { gap: 24px 10px; }
+  main > section { margin-top: 64px; }
+  .ficha__caja { grid-template-columns: 1fr; }
+  .ficha__imagen { min-height: 0; height: 46vh; }
+  .ficha__imagen img { max-height: 100%; }
+}
+@media (max-width: 560px) {
+  .nav ul { gap: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation: none !important; transition: none !important; }
+}

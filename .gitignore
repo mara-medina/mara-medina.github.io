@@ -1,0 +1,3 @@
+# Archivos de claves: nunca se suben
+.env
+*.env
