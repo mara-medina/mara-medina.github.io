@@ -3,7 +3,7 @@ const PERSONAJES = [
   { id: "stella", nombre: "Stella", rol: "Protagonista · turista espacial", fondo: "#d6ead0",
     corto: "Una estrella octángula que llega a la Tierra como turista.",
     largo: "Siguió a la sonda Voyager hasta la Tierra, fascinada por la imperfección y la espontaneidad de la humanidad. Entusiasta, impulsiva, fan del jazz, del rock and roll y de la leche de chocolate (y de las vacas). Detrás de su alegría carga la culpa de haber dejado su hogar… y un secreto que podría traer el fin del mundo." },
-  { id: "carter", nombre: "Carter Kepler", rol: "Descendiente de Cthulhu", fondo: "#cfe2de",
+  { id: "carter", nombre: "Carter Kepler", rol: "Descendiente de Cthulhu", fondo: "#cfe2de", bocetoSrc: "img/port/boceto-02.webp",
     corto: "Escritor sin editorial y “intelectual incomprendido”.",
     largo: "Juega golf, observa aves, actualiza Wikipedia y ordena sus cosas por color o en orden alfabético. Ninguna editorial lo publica por “aburrido”, así que se vuelve guía turístico de Stella y cuenta sus aventuras en un blog para ganar audiencia." },
   { id: "mothman", nombre: "Mothman", rol: "Repartidor de pizza", fondo: "#e2d7ec",
@@ -53,6 +53,14 @@ function abrirFicha(p, src) {
   img.src = src;
   img.alt = `${p.nombre}, personaje de Earth to Stella`;
   marco.replaceChildren(img);
+  if (p.bocetoSrc) {
+    const boceto = document.createElement("img");
+    boceto.src = p.bocetoSrc;
+    boceto.alt = `Boceto a lápiz de ${p.nombre}`;
+    boceto.className = "ficha__boceto";
+    marco.prepend(boceto);
+  }
+  marco.classList.toggle("ficha__imagen--pareja", !!p.bocetoSrc);
   marco.style.setProperty("--color", p.fondo);
   marco.classList.toggle("ficha__imagen--foto", !!p.foto);
   ficha.querySelector(".ficha__rol").textContent = p.rol;
@@ -66,6 +74,7 @@ ficha.addEventListener("click", e => { if (e.target === ficha) cerrarFicha(); })
 
 // Galerías: miniatura en la rejilla y la imagen grande en el visor, con anterior/siguiente
 const visor = document.getElementById("visor");
+const mini = p => p.mini || `img/port/${p.id}-mini.webp`;
 let lista = [], actual = 0;
 document.querySelectorAll("[data-galeria]").forEach(cont => {
   const piezas = GALERIA[cont.dataset.galeria];
@@ -74,21 +83,37 @@ document.querySelectorAll("[data-galeria]").forEach(cont => {
   piezas.forEach((p, i) => {
     const b = document.createElement("button");
     b.type = "button";
+    if (p.boceto) {
+      b.className = "pareja";
+      b.setAttribute("aria-label", `Ampliar: ${p.titulo}, boceto y color`);
+      b.innerHTML = `<span class="pareja__lado"><img src="${mini(p.boceto)}" alt="" loading="lazy"><span class="pareja__etiqueta">Boceto</span></span>
+        <span class="pareja__lado"><img src="${mini(p.color)}" alt="" loading="lazy"><span class="pareja__etiqueta">Color</span></span>
+        <span class="pareja__titulo">${p.titulo}</span>`;
+      b.onclick = () => abrirVisor(piezas, i);
+      cont.appendChild(b);
+      return;
+    }
     b.className = "pieza" + (entera ? " pieza--entera" : "");
     b.setAttribute("aria-label", `Ampliar: ${p.titulo}`);
-    b.innerHTML = `<img src="img/port/${p.id}-mini.webp" alt="${p.titulo}" loading="lazy"><span class="pieza__titulo">${p.titulo}</span>`;
+    b.innerHTML = `<img src="${mini(p)}" alt="${p.titulo}" loading="lazy"><span class="pieza__titulo">${p.titulo}</span>`;
     b.onclick = () => abrirVisor(piezas, i);
     cont.appendChild(b);
   });
 });
-function mostrar(i) {
-  actual = (i + lista.length) % lista.length;
-  const p = lista[actual], img = document.createElement("img");
-  img.src = `img/port/${p.id}.webp`;
+function grande(p) {
+  const img = document.createElement("img");
+  img.src = p.src || `img/port/${p.id}.webp`;
   img.alt = p.titulo;
   img.width = p.w;
   img.height = p.h;
-  visor.querySelector(".visor__imagen").replaceChildren(img);
+  return img;
+}
+function mostrar(i) {
+  actual = (i + lista.length) % lista.length;
+  const p = lista[actual], marco = visor.querySelector(".visor__imagen");
+  // Una pareja se ve completa: el boceto a la izquierda (arriba en celular) y el color al lado
+  marco.replaceChildren(...(p.boceto ? [grande(p.boceto), grande(p.color)] : [grande(p)]));
+  marco.classList.toggle("visor__imagen--pareja", !!p.boceto);
   visor.querySelector(".visor__titulo").textContent = p.titulo;
   visor.querySelector(".visor__contador").textContent = lista.length > 1 ? `${actual + 1} / ${lista.length}` : "";
   visor.classList.toggle("visor--uno", lista.length < 2);
@@ -114,7 +139,7 @@ if (portada) {
   const destacadas = ["metro", "halloween", "lobo", "zoey", "model-sheet-stella", "ponis"];
   const puntos = portada.querySelector(".portada__puntos");
   const slides = destacadas.map((id, i) => {
-    const p = Object.values(GALERIA).flat().find(x => x.id === id);
+    const p = Object.values(GALERIA).flat().map(x => x.color || x).find(x => x.id === id);
     const slide = document.createElement("div");
     slide.className = "portada__slide" + (i === 0 ? " activa" : "");
     slide.innerHTML = `<img src="img/port/${id}.webp" alt="${p.titulo}" ${i === 0 ? "" : 'loading="lazy"'}>`;

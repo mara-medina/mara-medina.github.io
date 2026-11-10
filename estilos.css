@@ -71,6 +71,15 @@ img { max-width: 100%; }
 .pieza:hover .pieza__titulo, .pieza:focus-visible .pieza__titulo { opacity: 1; }
 .pieza:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
 
+/* Personaje con su boceto: los dos lados completos sobre papel claro */
+.pareja { all: unset; position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; aspect-ratio: 8 / 5; background: #1e1e1e; cursor: zoom-in; }
+.pareja__lado { position: relative; display: block; overflow: hidden; background: #e9e6e1; }
+.pareja__lado img { display: block; width: 100%; height: 100%; padding: 12px 12px 44px; box-sizing: border-box; object-fit: contain; transition: transform .5s cubic-bezier(.22, .61, .36, 1); }
+.pareja:hover .pareja__lado img, .pareja:focus-visible .pareja__lado img { transform: scale(1.04); }
+.pareja__etiqueta { position: absolute; top: 10px; left: 10px; padding: 3px 8px; background: rgba(27, 27, 27, .82); color: var(--texto); font-family: var(--f-titulo); font-weight: 700; font-size: 13px; letter-spacing: .06em; text-transform: uppercase; }
+.pareja__titulo { position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 14px 10px; background: linear-gradient(transparent, rgba(0, 0, 0, .75)); color: var(--texto); font-family: var(--f-titulo); font-weight: 700; font-size: 18px; }
+.pareja:focus-visible { outline: 3px solid var(--acento); outline-offset: 2px; }
+
 /* Earth to Stella */
 .proyecto { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); align-items: center; max-width: 1100px; margin: 0 auto; }
 .proyecto__poster { width: 100%; height: auto; display: block; }
@@ -121,6 +130,11 @@ img { max-width: 100%; }
 .ficha__imagen { display: grid; place-items: end center; min-height: 420px; padding: 24px 24px 0; background: var(--color); }
 .ficha__imagen img { max-height: 70vh; width: auto; object-fit: contain; }
 .ficha__imagen--foto { padding: 0; }
+.ficha:has(.ficha__imagen--pareja) { max-width: min(1100px, 94vw); }
+.ficha:has(.ficha__imagen--pareja) .ficha__caja { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); }
+.ficha__imagen--pareja { grid-template-columns: 1fr 1fr; gap: 10px; align-items: end; }
+.ficha__imagen--pareja img { max-width: 100%; max-height: 60vh; }
+.ficha__boceto { align-self: center; background: #fff; padding: 6px; box-shadow: 0 2px 10px rgba(0, 0, 0, .12); }
 .ficha__imagen--foto img { width: 100%; height: 100%; max-height: none; object-fit: cover; }
 .ficha__texto { padding: clamp(24px, 4vw, 44px); display: flex; flex-direction: column; justify-content: center; }
 .ficha__rol { margin: 0; font-family: var(--f-titulo); font-weight: 700; font-size: 14px; letter-spacing: .06em; text-transform: uppercase; color: #6a655f; }
@@ -135,6 +149,8 @@ img { max-width: 100%; }
 .visor::backdrop { background: transparent; }
 .visor__figura { margin: 0; display: grid; justify-items: center; gap: 12px; padding: 56px 72px 24px; }
 .visor__imagen img { display: block; max-width: min(1500px, calc(100vw - 144px)); max-height: calc(100svh - 140px); width: auto; height: auto; }
+.visor__imagen--pareja { display: flex; gap: 12px; align-items: center; justify-content: center; }
+.visor__imagen--pareja img { max-width: calc((100vw - 156px) / 2); background: #e9e6e1; }
 .visor figcaption { display: flex; gap: 16px; font-family: var(--f-titulo); font-weight: 700; font-size: 18px; }
 .visor__contador { color: var(--tenue); }
 .visor__boton, .visor__cerrar { position: absolute; color: var(--texto); background: none; border: 0; cursor: pointer; font-family: var(--f-titulo); font-weight: 700; }
@@ -154,7 +170,7 @@ img { max-width: 100%; }
   .sobre__foto { width: min(100%, 260px); margin: 0 auto; }
   .personajes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .personajes--secundarios { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .ficha__caja { grid-template-columns: 1fr; }
+  .ficha__caja, .ficha:has(.ficha__imagen--pareja) .ficha__caja { grid-template-columns: 1fr; }
   .ficha__imagen { min-height: 0; height: 46vh; }
   .ficha__imagen img { max-height: 100%; }
 }
@@ -167,6 +183,12 @@ img { max-width: 100%; }
   .pieza__titulo { opacity: 1; font-size: 15px; padding: 18px 10px 8px; }
   .visor__figura { padding: 56px 8px 72px; }
   .visor__imagen img { max-width: calc(100vw - 16px); max-height: calc(100svh - 160px); }
+  .visor__imagen--pareja { flex-direction: column; gap: 8px; }
+  .visor__imagen--pareja img { max-width: calc(100vw - 16px); max-height: calc((100svh - 176px) / 2); }
+  .rejilla--parejas { grid-template-columns: 1fr; }
+  .pareja { aspect-ratio: 4 / 3; }
+  .pareja__lado img { padding: 6px 6px 38px; }
+  .pareja__titulo { font-size: 15px; padding: 18px 10px 8px; }
   .visor__boton { top: auto; bottom: 10px; translate: none; }
 }
 
