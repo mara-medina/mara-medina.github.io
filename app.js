@@ -3,13 +3,15 @@ const PERSONAJES = [
   { id: "stella", nombre: "Stella", rol: "Protagonista · turista espacial", fondo: "#d6ead0",
     corto: "Una estrella octángula que llega a la Tierra como turista.",
     largo: "Siguió a la sonda Voyager hasta la Tierra, fascinada por la imperfección y la espontaneidad de la humanidad. Entusiasta, impulsiva, fan del jazz, del rock and roll y de la leche de chocolate (y de las vacas). Detrás de su alegría carga la culpa de haber dejado su hogar… y un secreto que podría traer el fin del mundo." },
-  { id: "carter", nombre: "Carter Kepler", rol: "Descendiente de Cthulhu", fondo: "#cfe2de", bocetoSrc: "img/port/boceto-02.webp",
+  { id: "carter", nombre: "Carter Kepler", rol: "Descendiente de Cthulhu", fondo: "#cfe2de",
+    bocetos: [["img/port/carter-v1.webp", "Primera versión de Carter Kepler, a lápiz"], ["img/port/boceto-02.webp", "Boceto a lápiz de Carter Kepler"]],
     corto: "Escritor sin editorial y “intelectual incomprendido”.",
     largo: "Juega golf, observa aves, actualiza Wikipedia y ordena sus cosas por color o en orden alfabético. Ninguna editorial lo publica por “aburrido”, así que se vuelve guía turístico de Stella y cuenta sus aventuras en un blog para ganar audiencia." },
   { id: "mothman", nombre: "Mothman", rol: "Repartidor de pizza", fondo: "#e2d7ec",
     corto: "Un hombre polilla de 3 metros con muy mala suerte.",
     largo: "Graduado en arquitectura, nocturno y relajado, nunca dura en un trabajo. Sus alas son demasiado flacas para volar, pero es la sensación de las fiestas. Hace de mediador entre Carter y Stella, y tiene un crush con la reportera Mary Bridge." },
-  { id: "mary", nombre: "Mary Bridge", rol: "Reportera reptiliana", fondo: "#f2e2b6", bocetoSrc: "img/port/boceto-19.webp",
+  { id: "mary", nombre: "Mary Bridge", rol: "Reportera reptiliana", fondo: "#f2e2b6", src: "img/mary-color.webp",
+    bocetos: [["img/port/boceto-19.webp", "Boceto a lápiz de Mary Bridge"]],
     corto: "Una reportera que quiere hacer justicia.",
     largo: "Intensa, inteligente y fiel creyente de la justicia, carga con el peso de reivindicar a su familia reptiliana. Quiere contar la historia de migración de Stella para por fin tener una nota importante en el noticiero." },
   { id: "crowley", nombre: "Crowley", rol: "El vecino de arriba", fondo: "#ffffff", boceto: true, src: "img/port/boceto-03.webp",
@@ -53,14 +55,18 @@ function abrirFicha(p, src) {
   img.src = src;
   img.alt = `${p.nombre}, personaje de Earth to Stella`;
   marco.replaceChildren(img);
-  if (p.bocetoSrc) {
+  // Versiones a lápiz, de la más antigua a la más reciente, antes del color
+  const bocetos = (p.bocetos || []).map(([ruta, texto]) => {
     const boceto = document.createElement("img");
-    boceto.src = p.bocetoSrc;
-    boceto.alt = `Boceto a lápiz de ${p.nombre}`;
+    boceto.src = ruta;
+    boceto.alt = texto;
     boceto.className = "ficha__boceto";
-    marco.prepend(boceto);
-  }
-  marco.classList.toggle("ficha__imagen--pareja", !!p.bocetoSrc);
+    return boceto;
+  });
+  marco.prepend(...bocetos);
+  marco.style.setProperty("--n", bocetos.length + 1);
+  marco.classList.toggle("ficha__imagen--pareja", bocetos.length > 0);
+  marco.classList.toggle("ficha__imagen--tres", bocetos.length > 1);
   marco.style.setProperty("--color", p.fondo);
   marco.classList.toggle("ficha__imagen--foto", !!p.foto);
   ficha.querySelector(".ficha__rol").textContent = p.rol;
