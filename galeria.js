@@ -1,5 +1,5 @@
 // Piezas del portafolio por sección; w y h son las medidas de la imagen grande (img/port/<id>.webp, o "src" si se indica)
-// "parejas": personajes que tienen su boceto disponible, mostrados juntos (boceto y color)
+// "parejas": personajes con sus bocetos disponibles (uno o varios, del más antiguo al más reciente) y su versión a color
 const GALERIA = {
  "stella": [
   {
@@ -187,13 +187,84 @@ const GALERIA = {
  ],
  "parejas": [
   {
+   "titulo": "Stella · Earth to Stella",
+   "bocetos": [
+    {
+     "id": "stella-boceto",
+     "titulo": "Stella · boceto",
+     "w": 1000,
+     "h": 1651
+    }
+   ],
+   "color": {
+    "id": "stella",
+    "titulo": "Stella · color",
+    "w": 800,
+    "h": 1306,
+    "src": "img/stella.webp",
+    "mini": "img/stella.webp"
+   }
+  },
+  {
+   "titulo": "Carter Kepler · Earth to Stella",
+   "bocetos": [
+    {
+     "id": "carter-v1",
+     "titulo": "Carter Kepler · primera versión",
+     "w": 1000,
+     "h": 1641
+    },
+    {
+     "id": "boceto-02",
+     "titulo": "Carter Kepler · boceto",
+     "w": 757,
+     "h": 1574
+    }
+   ],
+   "color": {
+    "id": "carter",
+    "titulo": "Carter Kepler · color",
+    "w": 650,
+    "h": 1326,
+    "src": "img/carter.webp",
+    "mini": "img/carter.webp"
+   }
+  },
+  {
+   "titulo": "Mary Bridge · Earth to Stella",
+   "bocetos": [
+    {
+     "id": "mary-boceto-familia",
+     "titulo": "Mary Bridge · boceto con su familia",
+     "w": 1000,
+     "h": 1620
+    },
+    {
+     "id": "boceto-19",
+     "titulo": "Mary Bridge · boceto",
+     "w": 902,
+     "h": 1800
+    }
+   ],
+   "color": {
+    "id": "mary-color",
+    "titulo": "Mary Bridge · color",
+    "w": 501,
+    "h": 1130,
+    "src": "img/mary-color.webp",
+    "mini": "img/mary-color.webp"
+   }
+  },
+  {
    "titulo": "Zanahoria",
-   "boceto": {
-    "id": "boceto-14",
-    "titulo": "Zanahoria · boceto",
-    "w": 1000,
-    "h": 1425
-   },
+   "bocetos": [
+    {
+     "id": "boceto-14",
+     "titulo": "Zanahoria · boceto",
+     "w": 1000,
+     "h": 1425
+    }
+   ],
    "color": {
     "id": "zanahoria",
     "titulo": "Zanahoria · color",
@@ -203,12 +274,14 @@ const GALERIA = {
   },
   {
    "titulo": "Chico rata",
-   "boceto": {
-    "id": "boceto-16",
-    "titulo": "Chico rata · boceto",
-    "w": 1000,
-    "h": 1380
-   },
+   "bocetos": [
+    {
+     "id": "boceto-16",
+     "titulo": "Chico rata · boceto",
+     "w": 1000,
+     "h": 1380
+    }
+   ],
    "color": {
     "id": "chico-rata",
     "titulo": "Chico rata · color",
@@ -218,12 +291,14 @@ const GALERIA = {
   },
   {
    "titulo": "Pacguco",
-   "boceto": {
-    "id": "boceto-15",
-    "titulo": "Pacguco · boceto",
-    "w": 1000,
-    "h": 1559
-   },
+   "bocetos": [
+    {
+     "id": "boceto-15",
+     "titulo": "Pacguco · boceto",
+     "w": 1000,
+     "h": 1559
+    }
+   ],
    "color": {
     "id": "pacguco",
     "titulo": "Pacguco · color",
@@ -233,12 +308,14 @@ const GALERIA = {
   },
   {
    "titulo": "Vaquero",
-   "boceto": {
-    "id": "boceto-11",
-    "titulo": "Vaquero · boceto",
-    "w": 1000,
-    "h": 1322
-   },
+   "bocetos": [
+    {
+     "id": "boceto-11",
+     "titulo": "Vaquero · boceto",
+     "w": 1000,
+     "h": 1322
+    }
+   ],
    "color": {
     "id": "vaquero",
     "titulo": "Vaquero · color",
@@ -248,12 +325,14 @@ const GALERIA = {
   },
   {
    "titulo": "El caballero",
-   "boceto": {
-    "id": "boceto-21",
-    "titulo": "El caballero · boceto",
-    "w": 1000,
-    "h": 1571
-   },
+   "bocetos": [
+    {
+     "id": "boceto-21",
+     "titulo": "El caballero · boceto",
+     "w": 1000,
+     "h": 1571
+    }
+   ],
    "color": {
     "id": "caballero",
     "titulo": "El caballero · color",
@@ -263,12 +342,14 @@ const GALERIA = {
   },
   {
    "titulo": "Espíritu del árbol",
-   "boceto": {
-    "id": "boceto-12",
-    "titulo": "Espíritu del árbol · boceto",
-    "w": 1000,
-    "h": 1297
-   },
+   "bocetos": [
+    {
+     "id": "boceto-12",
+     "titulo": "Espíritu del árbol · boceto",
+     "w": 1000,
+     "h": 1297
+    }
+   ],
    "color": {
     "id": "arbol",
     "titulo": "Espíritu del árbol · color",
@@ -278,12 +359,14 @@ const GALERIA = {
   },
   {
    "titulo": "Zoey",
-   "boceto": {
-    "id": "boceto-18",
-    "titulo": "Zoey · boceto",
-    "w": 1000,
-    "h": 1603
-   },
+   "bocetos": [
+    {
+     "id": "boceto-18",
+     "titulo": "Zoey · boceto",
+     "w": 1000,
+     "h": 1603
+    }
+   ],
    "color": {
     "id": "zoey",
     "titulo": "Zoey · color",

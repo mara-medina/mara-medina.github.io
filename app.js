@@ -1,6 +1,7 @@
 // Personajes de Earth to Stella; descripciones resumidas del pitch bible de Mara
 const PERSONAJES = [
   { id: "stella", nombre: "Stella", rol: "Protagonista · turista espacial", fondo: "#d6ead0",
+    bocetos: [["img/port/stella-boceto.webp", "Boceto a lápiz de Stella"]],
     corto: "Una estrella octángula que llega a la Tierra como turista.",
     largo: "Siguió a la sonda Voyager hasta la Tierra, fascinada por la imperfección y la espontaneidad de la humanidad. Entusiasta, impulsiva, fan del jazz, del rock and roll y de la leche de chocolate (y de las vacas). Detrás de su alegría carga la culpa de haber dejado su hogar… y un secreto que podría traer el fin del mundo." },
   { id: "carter", nombre: "Carter Kepler", rol: "Descendiente de Cthulhu", fondo: "#cfe2de",
@@ -89,12 +90,14 @@ document.querySelectorAll("[data-galeria]").forEach(cont => {
   piezas.forEach((p, i) => {
     const b = document.createElement("button");
     b.type = "button";
-    if (p.boceto) {
-      b.className = "pareja";
-      b.setAttribute("aria-label", `Ampliar: ${p.titulo}, boceto y color`);
-      b.innerHTML = `<span class="pareja__lado"><img src="${mini(p.boceto)}" alt="" loading="lazy"><span class="pareja__etiqueta">Boceto</span></span>
-        <span class="pareja__lado"><img src="${mini(p.color)}" alt="" loading="lazy"><span class="pareja__etiqueta">Color</span></span>
-        <span class="pareja__titulo">${p.titulo}</span>`;
+    if (p.bocetos) {
+      const lados = p.bocetos.map(x => [x, "Boceto"]).concat([[p.color, "Color"]]);
+      b.className = "pareja" + (lados.length > 2 ? " pareja--tres" : "");
+      b.style.setProperty("--n", lados.length);
+      b.setAttribute("aria-label", `Ampliar: ${p.titulo}, bocetos y color`);
+      b.innerHTML = lados.map(([x, etiqueta]) =>
+        `<span class="pareja__lado"><img src="${mini(x)}" alt="" loading="lazy"><span class="pareja__etiqueta">${etiqueta}</span></span>`).join("")
+        + `<span class="pareja__titulo">${p.titulo}</span>`;
       b.onclick = () => abrirVisor(piezas, i);
       cont.appendChild(b);
       return;
@@ -118,8 +121,10 @@ function mostrar(i) {
   actual = (i + lista.length) % lista.length;
   const p = lista[actual], marco = visor.querySelector(".visor__imagen");
   // Una pareja se ve completa: el boceto a la izquierda (arriba en celular) y el color al lado
-  marco.replaceChildren(...(p.boceto ? [grande(p.boceto), grande(p.color)] : [grande(p)]));
-  marco.classList.toggle("visor__imagen--pareja", !!p.boceto);
+  const imagenes = p.bocetos ? [...p.bocetos, p.color].map(grande) : [grande(p)];
+  marco.replaceChildren(...imagenes);
+  marco.style.setProperty("--n", imagenes.length);
+  marco.classList.toggle("visor__imagen--pareja", imagenes.length > 1);
   visor.querySelector(".visor__titulo").textContent = p.titulo;
   visor.querySelector(".visor__contador").textContent = lista.length > 1 ? `${actual + 1} / ${lista.length}` : "";
   visor.classList.toggle("visor--uno", lista.length < 2);
