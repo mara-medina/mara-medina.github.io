@@ -173,12 +173,6 @@ const GALERIA = {
    "h": 1664
   },
   {
-   "id": "boceto-19",
-   "titulo": "Boceto",
-   "w": 914,
-   "h": 1823
-  },
-  {
    "id": "boceto-20",
    "titulo": "Boceto",
    "w": 1000,

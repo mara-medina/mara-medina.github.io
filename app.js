@@ -9,7 +9,7 @@ const PERSONAJES = [
   { id: "mothman", nombre: "Mothman", rol: "Repartidor de pizza", fondo: "#e2d7ec",
     corto: "Un hombre polilla de 3 metros con muy mala suerte.",
     largo: "Graduado en arquitectura, nocturno y relajado, nunca dura en un trabajo. Sus alas son demasiado flacas para volar, pero es la sensación de las fiestas. Hace de mediador entre Carter y Stella, y tiene un crush con la reportera Mary Bridge." },
-  { id: "mary", nombre: "Mary Bridge", rol: "Reportera reptiliana", fondo: "#f2e2b6",
+  { id: "mary", nombre: "Mary Bridge", rol: "Reportera reptiliana", fondo: "#f2e2b6", bocetoSrc: "img/port/boceto-19.webp",
     corto: "Una reportera que quiere hacer justicia.",
     largo: "Intensa, inteligente y fiel creyente de la justicia, carga con el peso de reivindicar a su familia reptiliana. Quiere contar la historia de migración de Stella para por fin tener una nota importante en el noticiero." },
   { id: "crowley", nombre: "Crowley", rol: "El vecino de arriba", fondo: "#ffffff", boceto: true, src: "img/port/boceto-03.webp",
