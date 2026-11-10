@@ -3,97 +3,64 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mara Medina · Diseño de personajes</title>
-<meta name="description" content="Mara Medina, diseñadora de personajes y animadora 2D. Creadora de Earth to Stella.">
-<meta property="og:title" content="Mara Medina · Diseño de personajes">
-<meta property="og:description" content="Diseño de personajes y animación 2D. Creadora de Earth to Stella.">
-<meta property="og:image" content="img/poster.jpg">
+<title>Mara Medina · Animación y diseño de personajes</title>
+<meta name="description" content="Mara Medina, animadora 2D y diseñadora de personajes. Demo reel, Earth to Stella, personajes y bocetos.">
+<meta property="og:title" content="Mara Medina · Animación y diseño de personajes">
+<meta property="og:description" content="Mara Medina, animadora 2D y diseñadora de personajes. Demo reel, Earth to Stella, personajes y bocetos.">
+<meta property="og:image" content="img/port/metro.webp">
 <link rel="icon" href="favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="32x32" href="icono/icono-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icono/icono-192.png">
 <link rel="apple-touch-icon" href="icono/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@0,62..125,400..800;1,100,400..600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="estilos.css?v=20261104d">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css?v=20261109e">
 </head>
 <body>
-  <nav class="nav" aria-label="Principal">
-    <span>Diseño de personajes</span>
-    <ul><li><a href="#personajes">Personajes</a></li><li><a href="#proyecto">Proyecto</a></li><li><a href="#contacto">Contacto</a></li></ul>
-  </nav>
-
-  <header class="cabecera">
-    <div class="presentacion">
-      <h1 class="nombre">Mara<br>Medina</h1>
-      <div class="bajada">
-        <p>Diseñadora de personajes y animadora 2D. Creadora de <em>Earth to Stella</em>.</p>
-        <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
-      </div>
-    </div>
-    <div class="estrella" aria-hidden="true">
-      <span class="estrella__planeta"></span>
-      <img src="img/stella.webp" alt="" width="800" height="1306">
-    </div>
+  <header class="barra">
+    <a class="logo" href="index.html" aria-label="Mara Medina, inicio">Mara<br>Medina<small>Animación y personajes</small></a>
+    <nav aria-label="Principal">
+      <ul class="menu">
+        <li><a href="index.html" aria-current="page">Inicio</a></li>
+        <li><a href="earth-to-stella.html">Earth to Stella</a></li>
+        <li><a href="personajes.html">Personajes</a></li>
+        <li><a href="bocetos.html">Bocetos</a></li>
+        <li><a href="sobre-mi.html">Sobre mí y contacto</a></li>
+      </ul>
+    </nav>
   </header>
 
-  <main>
-    <section class="proyecto" id="proyecto" aria-labelledby="t-proyecto">
-      <h2 class="seccion__titulo" id="t-proyecto">Proyecto original</h2>
-      <div class="proyecto__cuerpo">
-        <img class="proyecto__poster" src="img/poster.jpg" alt="Póster de Earth to Stella: Stella, Carter, Mothman y Mary Bridge en la ciudad, por Mara Medina" width="463" height="844" loading="lazy">
-        <div class="proyecto__texto">
-          <img class="proyecto__logo" src="img/logo.webp" alt="Earth to Stella" width="840" height="803" loading="lazy">
-          <p class="proyecto__tagline">“El mundo es más grande de lo que imaginas”</p>
-          <p class="proyecto__logline">Una turista alienígena, un escritor descendiente de Cthulhu, un Mothman repartidor y una reportera de sangre reptiliana intentan sobrevivir a la vida adulta en una ciudad de críptidos, sin sospechar que uno de ellos podría traer consigo el fin del mundo.</p>
-          <dl class="proyecto__ficha">
-            <div><dt>Género</dt><dd>Comedia absurda y surrealismo</dd></div>
-            <div><dt>Técnica</dt><dd>Animación 2D digital</dd></div>
-            <div><dt>Formato</dt><dd>12 episodios × 22 min</dd></div>
-            <div><dt>Público</dt><dd>TV-PG</dd></div>
-          </dl>
-        </div>
-      </div>
-    </section>
+  <section class="portada" aria-label="Ilustraciones destacadas">
+    <div class="portada__nombre">
+      <h1>Mara<br>Medina</h1>
+      <p>Animación 2D y diseño de personajes</p>
+    </div>
+    <button type="button" class="portada__flecha portada__flecha--prev" aria-label="Ilustración anterior">‹</button>
+    <button type="button" class="portada__flecha portada__flecha--next" aria-label="Ilustración siguiente">›</button>
+    <div class="portada__puntos"></div>
+  </section>
 
-    <section class="personajes" id="personajes" aria-labelledby="t-personajes">
-      <h2 class="seccion__titulo" id="t-personajes">Personajes</h2>
-      <div class="personajes__rejilla" id="rejilla"></div>
-    </section>
-
-    <section class="bocetos" aria-labelledby="t-bocetos">
-      <h2 class="seccion__titulo" id="t-bocetos">Bocetos</h2>
-      <div class="bocetos__fila" id="bocetos"></div>
-    </section>
-
-    <section class="escenarios" aria-labelledby="t-escenarios">
-      <h2 class="seccion__titulo" id="t-escenarios">Escenarios</h2>
-      <figure><img src="img/escenario-ciudad.jpg" alt="Escenario de la ciudad de críptidos: calle con edificios de colores" width="1347" height="758" loading="lazy"><figcaption>La ciudad</figcaption></figure>
-      <figure><img src="img/escenario-depa.jpg" alt="Escenario del departamento: cocina y sala en tonos verdes y naranjas" width="1600" height="450" loading="lazy"><figcaption>El departamento</figcaption></figure>
-    </section>
-
-    <section class="vineta" aria-labelledby="t-vineta">
-      <h2 class="seccion__titulo" id="t-vineta">Cómic</h2>
-      <figure>
-        <img src="img/vineta-grande.jpg" alt="Viñeta en blanco y negro: Stella pregunta si una máquina expendedora es una torre de departamentos para gente pequeña y Carter responde que es una máquina expendedora" width="1600" height="900" loading="lazy">
-        <figcaption>“Is it an apartment tower for little people?” — “WHAT? No, it’s a vending machine.”</figcaption>
+  <main class="pagina">
+    <section class="bloque" aria-labelledby="t-reel">
+      <h2 class="pagina__titulo" id="t-reel">Demo reel de animación</h2>
+      <figure class="reel">
+        <video src="video/demo-reel-animacion.mp4" poster="video/demo-reel-animacion.jpg" controls playsinline preload="metadata" width="2018" height="1080"></video>
+        <figcaption>Animación en <em>rough</em> · 1:11</figcaption>
       </figure>
-    </section>
-
-    <section class="cierre" id="contacto">
-      <h2>Contáctame</h2>
-      <div class="correo">
-        <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
-        <button type="button" class="copiar" data-copiar="maramedinamtz22@gmail.com" aria-label="Copiar correo" title="Copiar correo">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
-        </button>
-        <span class="copiar__aviso" role="status" aria-live="polite"></span>
+      <div class="inicio__enlaces">
+        <a class="boton" href="earth-to-stella.html">Earth to Stella</a>
+        <a class="boton" href="personajes.html">Personajes</a>
+        <a class="boton" href="bocetos.html">Bocetos</a>
+        <a class="boton" href="sobre-mi.html">Contacto</a>
       </div>
-      <a href="https://wa.me/13613336608" target="_blank" rel="noopener">WhatsApp +1 (361) 333-6608</a>
-      <p class="cierre__otro">También edito video: <a href="https://edicion.maraportafolio.com/">edicion.maraportafolio.com</a></p>
-      <p>© 2026 Mara Medina · <em>Earth to Stella</em> es una obra original de Mara Jimena Medina Martínez</p>
     </section>
   </main>
+
+  <footer class="pie">
+    <span>© 2026 Mara Medina · <em>Earth to Stella</em> es una obra original de Mara Jimena Medina Martínez</span>
+    <span><a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a></span>
+  </footer>
 
   <dialog class="ficha" id="ficha" aria-labelledby="ficha-nombre">
     <div class="ficha__caja">
@@ -107,6 +74,17 @@
     </div>
   </dialog>
 
-<script src="app.js?v=20261104d"></script>
+  <dialog class="visor" id="visor" aria-label="Imagen ampliada">
+    <figure class="visor__figura">
+      <div class="visor__imagen"></div>
+      <figcaption><span class="visor__titulo"></span><span class="visor__contador"></span></figcaption>
+    </figure>
+    <button type="button" class="visor__boton visor__boton--prev" aria-label="Anterior">‹</button>
+    <button type="button" class="visor__boton visor__boton--next" aria-label="Siguiente">›</button>
+    <button type="button" class="visor__cerrar" autofocus>Cerrar ✕</button>
+  </dialog>
+
+<script src="galeria.js?v=20261109e"></script>
+<script src="app.js?v=20261109e"></script>
 </body>
 </html>

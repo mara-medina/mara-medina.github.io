@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sobre mí y contacto · Mara Medina</title>
+<meta name="description" content="Contacto de Mara Medina, animadora 2D y diseñadora de personajes.">
+<meta property="og:title" content="Sobre mí y contacto · Mara Medina">
+<meta property="og:description" content="Contacto de Mara Medina, animadora 2D y diseñadora de personajes.">
+<meta property="og:image" content="img/port/metro.webp">
+<link rel="icon" href="favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="icono/icono-32.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icono/icono-192.png">
+<link rel="apple-touch-icon" href="icono/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Barlow:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="estilos.css?v=20261109e">
+</head>
+<body>
+  <header class="barra">
+    <a class="logo" href="index.html" aria-label="Mara Medina, inicio">Mara<br>Medina<small>Animación y personajes</small></a>
+    <nav aria-label="Principal">
+      <ul class="menu">
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="earth-to-stella.html">Earth to Stella</a></li>
+        <li><a href="personajes.html">Personajes</a></li>
+        <li><a href="bocetos.html">Bocetos</a></li>
+        <li><a href="sobre-mi.html" aria-current="page">Sobre mí y contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="pagina">
+    <section class="sobre" aria-labelledby="t-sobre">
+      <img class="sobre__foto" src="img/autorretrato.webp" alt="Autorretrato ilustrado de Mara Medina con goggles" width="404" height="404">
+      <div>
+        <h1 id="t-sobre">Sobre mí</h1>
+        <p>Soy Mara Medina, animadora 2D y diseñadora de personajes. Creé <em>Earth to Stella</em>, una serie de comedia absurda sobre una estrella turista que llega a una ciudad donde los críptidos son vecinos comunes.</p>
+        <p>Dibujo personajes desde el primer boceto hasta el model sheet y la animación.</p>
+        <p><strong>Para trabajos y colaboraciones:</strong></p>
+        <div class="sobre__correo">
+          <a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a>
+          <button type="button" class="copiar" data-copiar="maramedinamtz22@gmail.com" aria-label="Copiar correo" title="Copiar correo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>
+          </button>
+          <span class="copiar__aviso" role="status" aria-live="polite"></span>
+        </div>
+        <ul class="sobre__lista">
+          <li><a href="https://wa.me/13613336608" target="_blank" rel="noopener">WhatsApp +1 (361) 333-6608</a></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <span>© 2026 Mara Medina · <em>Earth to Stella</em> es una obra original de Mara Jimena Medina Martínez</span>
+    <span><a href="mailto:maramedinamtz22@gmail.com">maramedinamtz22@gmail.com</a></span>
+  </footer>
+
+  <dialog class="ficha" id="ficha" aria-labelledby="ficha-nombre">
+    <div class="ficha__caja">
+      <div class="ficha__imagen"></div>
+      <div class="ficha__texto">
+        <p class="ficha__rol"></p>
+        <h3 id="ficha-nombre"></h3>
+        <p class="ficha__descripcion"></p>
+        <button type="button" class="ficha__cerrar" autofocus>Cerrar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="visor" id="visor" aria-label="Imagen ampliada">
+    <figure class="visor__figura">
+      <div class="visor__imagen"></div>
+      <figcaption><span class="visor__titulo"></span><span class="visor__contador"></span></figcaption>
+    </figure>
+    <button type="button" class="visor__boton visor__boton--prev" aria-label="Anterior">‹</button>
+    <button type="button" class="visor__boton visor__boton--next" aria-label="Siguiente">›</button>
+    <button type="button" class="visor__cerrar" autofocus>Cerrar ✕</button>
+  </dialog>
+
+<script src="galeria.js?v=20261109e"></script>
+<script src="app.js?v=20261109e"></script>
+</body>
+</html>
