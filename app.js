@@ -1,3 +1,29 @@
+// Menú: en celular se desliza de lado; las flechas muestran hacia dónde hay más opciones
+const menu = document.querySelector(".menu"), navegacion = menu.parentElement;
+const marcarMenu = () => {
+  navegacion.classList.toggle("menu--inicio-oculto", menu.scrollLeft > 4);
+  navegacion.classList.toggle("menu--al-final", menu.scrollLeft + menu.clientWidth >= menu.scrollWidth - 4);
+};
+const activo = menu.querySelector('[aria-current="page"]');
+if (activo && activo.offsetLeft + activo.offsetWidth > menu.clientWidth - 36) menu.scrollLeft = activo.parentElement.offsetLeft - 16;
+menu.addEventListener("scroll", marcarMenu, { passive: true });
+// Con mouse (pantallas angostas en computadora) también se arrastra; si hubo arrastre, no se abre el enlace
+let arrastre = null;
+menu.addEventListener("pointerdown", e => {
+  if (e.pointerType === "mouse" && menu.scrollWidth > menu.clientWidth) arrastre = { x: e.clientX, inicio: menu.scrollLeft, movido: false };
+});
+addEventListener("pointermove", e => {
+  if (!arrastre) return;
+  const dx = e.clientX - arrastre.x;
+  if (Math.abs(dx) > 5) arrastre.movido = true;
+  menu.scrollLeft = arrastre.inicio - dx;
+});
+addEventListener("pointerup", () => { if (arrastre) setTimeout(() => { arrastre = null; }, 0); });
+menu.addEventListener("click", e => { if (arrastre && arrastre.movido) e.preventDefault(); }, true);
+menu.addEventListener("dragstart", e => e.preventDefault());
+addEventListener("resize", marcarMenu);
+marcarMenu();
+
 // Personajes de Earth to Stella; descripciones resumidas del pitch bible de Mara
 const PERSONAJES = [
   { id: "stella", nombre: "Stella", rol: "Protagonista · turista espacial", fondo: "#d6ead0",

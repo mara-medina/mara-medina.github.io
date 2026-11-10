@@ -183,7 +183,15 @@ img { max-width: 100%; }
 @media (max-width: 640px) {
   .barra { flex-direction: column; align-items: flex-start; gap: 6px; padding-bottom: 4px; }
   .barra nav { width: 100%; }
-  .menu { width: 100%; gap: 20px; }
+  .menu { width: 100%; gap: 20px; padding-right: 36px; overscroll-behavior-x: contain; scroll-snap-type: x proximity; scroll-padding-inline: 16px; }
+  .menu li { scroll-snap-align: start; }
+  /* Pista de que el menú se desliza: flecha y desvanecido en el lado que tiene más opciones */
+  .barra nav { position: relative; }
+  .barra nav::before, .barra nav::after { position: absolute; top: 0; bottom: 0; z-index: 1; width: 42px; display: grid; align-items: center; font-family: var(--f-titulo); font-weight: 800; font-size: 26px; color: var(--acento); pointer-events: none; transition: opacity .2s; }
+  .barra nav::after { content: "›"; right: 0; justify-items: end; background: linear-gradient(90deg, rgba(27, 27, 27, 0), var(--barra) 65%); }
+  .barra nav::before { content: "‹"; left: 0; justify-items: start; background: linear-gradient(270deg, rgba(27, 27, 27, 0), var(--barra) 65%); opacity: 0; }
+  .barra nav.menu--inicio-oculto::before { opacity: 1; }
+  .barra nav.menu--al-final::after { opacity: 0; }
   .portada { height: auto; min-height: 0; padding-top: 75vw; }
   .portada__slide { bottom: auto; height: 75vw; }
   .portada__slide img { object-fit: contain; }
